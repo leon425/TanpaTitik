@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+
+    <!--bootstrap-->
+    <link href"{% static 'css\main.min.css' %}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %} TanpaTitik {% endblock %}</title> <!-- This way, we can change the title based on the pages. WebGame is default title-->
+
+    {% block head %}
+    {% endblock head %}
+
+    <style>
+      * {
+        font-family: sans-serif;
+        text-decoration: None;
+        color:rgba(1,1,1,0.75);
+      }
+
+      .navbar {
+        background-color: rgb(234,234,234) !important;
+      }
+
+      .nav-link {
+        color:black;
+        
+      }
+
+      .nav-link:hover {
+        color:black;
+      }
+
+      .search {
+        padding:0px;
+        margin:0px;
+        color:rgba(1,1,1,0.75);
+      }
+
+      .nav_text {
+        display:flex;
+        justify-content:space-between;
+        width:120px;
+        margin-right:50px;
+        font-size:1.1em;
+      }
+
+    </style>
+    
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color:rgb(234,234,234);margin:0px;padding:10px">
+    <div class="container-fluid" style="background-color:rgb(234,234,234)">
+      <a class="navbar-brand" href="#">TanpaTitik</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Collection</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Feedback</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+        <span class="navbar-text nav_text">
+          <button class="search" style="border:none;background:transparent;"><ion-icon name="search-outline"></ion-icon></button>
+          <a><ion-icon name="person-outline"></ion-icon></a>
+          <a><ion-icon name="heart-outline"></ion-icon></a>
+          <a><ion-icon name="cart-outline"></ion-icon></a>
+        </span>
+      </div>
+    </div>
+  </nav>
+
+
+<div id="content" ,name="content", class="main">
+    {% block content %} <!--So, all of the block content in other templates will go to base2.html content-->
+
+    {% endblock %}
+</div>  <!-- name is a variable in view.py, But, views.py must return that variable first -->
+
+<!--Bootstrap installation-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<!--ionicons installation-->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+
+
+{% block scripts %}
+
+{% endblock scripts %}
+
+</body>
+</html>

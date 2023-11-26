@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% extends "main/base2.html" %}
+<head>
+    
+    {% load crispy_forms_tags %}
+    <title>{% block title %} Create an Account {% endblock %}</title>
+</head>
+<body>
+    {% block content %}
+    {{user}}
+    <form method="POST" class="form-group">
+        {% csrf_token %}
+        
+        <button type="submit" class="btn btn-success"><a class ="nav-link" href="/logout">Logout</a></button>
+    </form>
+    {% endblock %}
+</body>
+</html>
