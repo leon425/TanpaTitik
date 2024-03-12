@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+{% extends "main/base2.html" %}
+{% load static %}
+{% load custom_filters %}
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>{% block title %}Wishlist | TanpaTitik{% endblock %}</title>
+
+    {% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/cart_wishlist/cart.css' %}">
+    {% endblock head %}
+
+
+</head>
+
+<body>
+
+<div id="content", name="content", class="main" style="width:100%">
+    {% block content %} <!--itnside this block content, the elements will be pasted to the parent elements which is base2.html-->
+    <div class="container cart-wishlist-content">
+    <div class="cart-wishlist-heading">Wishlist(s)</div>
+    {% if user.is_authenticated %}
+    <div class="wishlist-length">{{customer.wishlist_length}} Item(s)</div>  
+    <div class="cart-page">
+        <div class="cart-page-1" style="min-height:350px;">
+
+          {% if wishlist.count == 0 %}
+          <div class="cart-empty" style="">
+            <div class="cart-wishlist-heading" style="font-size:22px;margin-bottom:10px;">Your wishlist is currently empty</div>
+            <a href="{% url 'home' %}#collection"><div class="checkout" style="width:200px;"><div class="but-text" style="font-size:15px;">DISCOVER MORE</div></div></a>
+          </div>
+
+          {% else %}
+
+          {% for item in wishlist %}
+          <div class="cart-item">
+            <div class="item-img">
+              <img class="img_product img-cart-wishlist" src="{{item.product.img.url}}" alt="{{item.color_circle}}">
+            </div> 
+            
+            <div class="item-info">
+
+              <div class="item-name-close">
+                <div class="item-name">{{item.product.name}}</div>
+                <div class="item-close" data-bs-toggle="modal" data-bs-target="#exampleModal"><ion-icon name="close-outline" style="font-size:22px;"></ion-icon></div>
+              </div>
+
+              <!-- Modal  -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" style="font-weight:700">REMOVE ITEM</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="font-size:14px;">
+                          ARE YOU SURE YOU WANT TO REMOVE THIS ITEM FROM THE WISHLIST?
+                        </div> <!--modal-body-->
+                        <div class="modal-footer" style="display:flex;justify-content:center;align-items:center;">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width:75px !important;background:white !important; color:black !important;">No</button>
+                          <button type="button" class="btn btn-primary removeItem" data-productid="{{item.product.id}}" data-action="wishlist_remove" style="width:75px !important;background:#121147 !important;">Yes</button>
+                        </div>
+
+                    </div> <!--modal-content-->
+                </div> <!--modal-dialog-->
+            </div> <!--modal-->
+
+              <div class="color-size">COLOR : {{item.product.color}}</div> <!--when hover, show the color-->
+              <div class="color-size" style="">GENDER : {{item.product.gender}}</div>
+              <div class="color-size" style="margin-bottom:13px;">SIZE : {{item.product.size}}</div> 
+              {% if item.product.offer == False %}
+                <div class="item-price">Rp {{item.product.price|add_fullstop}}</div> <!--if offer == False-->
+              {% else %}
+                <div class="item-price-old">Rp {{item.product.price|add_fullstop}}</div>
+                <div class="item-price-new">Rp {{item.product.products_offer.final_price|add_fullstop}}</div>
+              {% endif %}
+              
+
+            </div> <!--item-info-->
+          </div> <!--cart-item-->
+          {% endfor %}
+          {% endif %}
+        </div> <!--cart-page-1-->
+        
+      </div> <!--cart-page-->
+
+      <!--If User is not logged in-->
+      {% else %}
+        <div class="cart-empty">
+          <div class="cart-wishlist-heading" style="font-size:22px;margin-bottom:10px;">Please Login to Begin Shopping</div>
+          <a href="{% url 'login_page' %}#collection"><div class="checkout" style="width:200px;"><div class="but-text" style="font-size:15px;">LOG IN</div></div></a>
+        </div>
+      {% endif %}
+    </div> <!--cart-wishlist-content--> 
+    {% endblock %}
+</div>
+
+
+</body>
+
+
+  {% block scripts %}
+  <script type="text/javascript" src="{% static '/js/cart_wishlist.js' %}"></script>
+  <script>
+    let user = '{{user}}';
+  </script>
+
+  <!--Setting the CSRF Token for Django AJAX, so that you can do the promise and fetch calls-->
+  <script>
+    function getToken(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+    }
+    const csrftoken = getToken('csrftoken');
+  </script>
+
+  {% endblock scripts %}
+
+
+</html>
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% extends "main/base2.html" %}
+{% load static %}
+{% load custom_filters %}
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>{% block title %}TanpaTitik{% endblock %}</title>
+
+    {% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/cart_wishlist/cart.css' %}">
+    {% endblock head %}
+
+
+</head>
+
+<body>
+
+<div id="content", name="content", class="main" style="width:100%">
+    {% block content %} <!--itnside this block content, the elements will be pasted to the parent elements which is base2.html-->
+    <div class="cart-wishlist-content">
+        {% for order in orderToBeReviewed %}
+        <!--Filtering the order-->
+        {% if order.status != "Delivered" and order.status != "false" %}
+            <div>{{order}}</div>
+            <div>{{order.customer}}</div>
+            <div>{{order.status}}</div>
+            
+            {% for item in order.orderitem_set.all %}
+            <div>{{item}}</div>
+            {% endfor %}
+
+            {% for payment in order.payment_set.all %}
+                {{payment.payment_method}}
+                {{payment.payment_timestamp}}
+                {% comment %} <div><img src="{{payment.payment_evidence.url}}"></div> {% endcomment %}
+            {% endfor %}
+
+            
+            {{order.customer.shippingaddress.address}}, {{order.customer.shippingaddress.district}}, {{order.customer.shippingaddress.city}}, {{order.customer.shippingaddress.province}}, {{order.customer.shippingaddress.zipcode}}
+
+            <form method='POST' action="">
+                {% csrf_token %}
+                {{setOrderStatusForm.as_p}}
+                <button type="submit" class="btn" value="{{order.id}}" name="setOrderStatusBtn">Change Order Status</button>
+            </form>
+
+        {% endif %}
+        {% endfor %}
+    </div> <!--cart-wishlist-content-->
+    {% endblock %}
+</div>
+
+
+</body>
+
+
+  {% block scripts %}
+  <script type="text/javascript" src="{% static '/js/cart_wishlist.js' %}"></script>
+  <script>
+    let user = '{{user}}';
+  </script>
+
+  <!--Setting the CSRF Token for Django AJAX, so that you can do the promise and fetch calls-->
+  <script>
+    function getToken(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+    }
+    const csrftoken = getToken('csrftoken');
+  </script>
+
+  {% endblock scripts %}
+
+
+</html>
+

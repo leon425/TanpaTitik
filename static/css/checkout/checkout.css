@@ -1,0 +1,191 @@
+p {
+    display:flex;
+    justify-content:space-between;
+    width:100%;
+    margin-bottom:30px;
+}
+
+label {
+    text-transform: uppercase;
+    font-size:18px;
+}
+
+input {
+    width:70%;
+}
+
+select {
+    width:70%;
+}
+
+.checkout-page {
+    width:100%;
+    /* height:500px; */
+    /* border:2px solid black; */
+    display:flex;
+    justify-content:space-between;
+    padding:0px;
+    /* flex-wrap:wrap; */
+}
+
+.checkout-page-1 {
+    /* border:2px solid blue; */
+    width:35%;
+    min-width:600px;
+}
+
+.checkout-page-2 {
+    /* border:2px solid red; */
+    width:35%;
+}
+
+
+.delivery-payment-heading {
+    font-size:20px;
+    font-family:'Inter';
+    margin-bottom:10px;
+}
+
+.delivery-box {
+    /* width:500px; */
+    width:100%;
+    height:300px;
+    border:2px solid rgba(1,1,1,0.6);
+    padding:20px;
+    margin-bottom:10px;
+}
+
+.ship-to-customer {
+    font-family:'Inter';
+    font-weight:700;
+    font-size:16px;
+    margin-bottom:10px;
+}
+
+.address {
+    font-family:'Inter';
+    font-size:16px;
+    font-weight:500;
+}
+
+/*Button inside the modal*/
+.register-the-address {
+    width:200px;
+    border-radius:5px;
+    background-color:#121147;
+    color:white;
+    font-weight:600;
+}
+
+.button-container {
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:40px;
+}
+
+.register-new-address {
+    width:48%;
+    height:45px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border:1px solid black;
+}
+
+.register-new-address > div {
+    font-size:16px;
+    font-weight:700;
+}
+
+.continue-to-payment {
+    width:48%;
+    height:45px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background-color:#121147;
+}
+
+.continue-to-payment > div {
+    font-size:16px;
+    font-weight:700;
+    color:white;
+}
+
+.payment-box {
+    /* width:500px; */
+    width:100%;
+    height:auto;
+    border:2px solid rgba(1,1,1,0.6);
+    padding:20px;
+    margin-bottom:40px;
+}
+
+.payment-pill {
+    width:100% !important; 
+    display:flex !important;
+    flex-wrap:nowrap;
+    justify-content:space-around !important;
+}
+
+.payment-pill > li { /*Each pill*/
+    width:35% !important;
+    height:50px;
+    /* background:yellow; */
+}
+
+.payment-pill > li > button { /*The pill text and button*/
+    font-size:12px;
+    height:100%;
+    width:100%;
+    color:black;
+}
+
+.pill-payment.active{
+    border:1px solid rgba(1,1,1,0.3);
+    background-color:white !important;
+    color:black !important;
+}
+
+.info {
+    font-size:12.5px;
+    margin-top:30px;
+    margin-bottom:30px;
+    text-align:justify;
+}
+
+.payment-tab > div {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.edit {
+    text-decoration:underline;
+    font-size:17px;
+    position:relative;
+    top:8px;
+}
+
+.display-items {
+    width:90px;
+    height:105px;
+    margin:8px;
+}
+
+.display-items-pict {
+    width:90px;
+    height:90px;
+    margin-bottom:5px;
+    background:#D9D9D9;
+}
+
+.summary-quantity {
+    font-family:'Inter';
+    height:10px;
+    font-size:11px;
+    font-weight:500;
+    padding-right:5px;
+    text-align:right;
+}

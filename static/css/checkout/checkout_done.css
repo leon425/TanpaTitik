@@ -1,0 +1,106 @@
+.done-header {
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:55px;
+}
+
+.done-title {
+    font-weight:700;
+    font-size:30px;
+    margin-bottom:5px;
+}
+
+.done-subtitle {
+    font-weight:500;
+    font-size:14px;
+    margin-bottom:17px;
+}
+
+.order-receipt {
+    width:70%;
+}
+
+.order-number-heading {
+    font-family:'Inter';
+    font-weight:700;
+    font-size:16.5px;
+}
+
+.order-number-number {
+    font-family:'Inter';
+    font-size:21px;
+    margin-bottom:15px;
+}
+
+.order-add-info {
+    color: rgba(1,1,1,0.8);
+    font-weight:500;
+    margin-bottom:5px;
+    line-height:1.2;
+    font-size:14px;
+    margin-bottom:5px;
+    font-family:'Inter';
+}
+
+.order-summary-content {
+    padding:15px 10px 30px 10px;
+    width:100%;
+    border:1px solid rgba(1,1,1,0.5);
+    margin-bottom:20px;
+}
+
+.order-summary-heading {
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:5px;
+}
+
+.order-number-heading {
+
+}
+
+.cancellation {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    width:105px;
+}
+
+.order-summary-button {
+    display:flex;
+    width:100%;
+    justify-content:center;
+    margin-bottom:25px;
+}
+
+.order-summary-payment {
+    width:100%;
+    border-bottom:1px solid rgba(1,1,1,0.25);
+    padding:5px 5px 10px 5px;
+}
+
+.order-summary-payment-container {
+    display:flex;
+    justify-content:space-between;
+    margin-top:5px;
+}
+
+.order-summary-payment-name{
+    font-weight:500;
+    font-size:13px;
+    font-family:'Inter';
+    width:200px;
+    color:rgba(1,1,1,0.9);
+}
+
+.payment-value {
+    text-align:right;
+}
+
+.payment-bold {
+    font-weight:700;
+    font-size:15.5px;
+}

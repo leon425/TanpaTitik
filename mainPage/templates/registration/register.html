@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+{% extends "main/base2.html" %}
+{% load static %}
+{% load custom_filters %}
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>{% block title %} Register | TanpaTitik; {% endblock %}</title>
+
+    {% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/user/register.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/cart_wishlist/cart.css' %}">
+    {% endblock head %}
+
+
+</head>
+
+<body>
+
+<div id="content", name="content", class="main" style="width:100%">
+    {% block content %} <!--itnside this block content, the elements will be pasted to the parent elements which is base2.html-->
+
+    <div class="container cart-wishlist-content" style="display:flex;justify-content:center">
+
+      <div class="register-box">
+        <div class="register-login-icon"><img src="{{logo2.img.url}}"></div>
+        <div class="register-heading">Register Your Account</div>
+      
+
+        <div class="register-form">
+          <form method="POST" action="">
+            {% csrf_token %}
+            <div class="input-form">
+              <div>{{form.username}}</div>
+              <div>{{form.first_name}}</div>
+              <div>{{form.password1}}</div>
+              <div> {{form.last_name}}</div>
+              <div>{{form.password2}}</div>
+              <div> {{form.email}}</div>
+            </div>
+
+            {% if form.errors %}
+                {% for key,value in form.errors.items %} 
+                <div class="register-login-error" style="">
+                  {{value}}
+                </div>
+                {% endfor %}
+            
+            {% endif %}
+          
+            <div class="btn-container"><button type="submit" name="create_user" class="btn register-login-button">Sign Up</button></div>
+          </form>
+        </div> <!--register-form-->
+        <div class="register-login-footer">Already have an account? <a href="{% url 'login_page' %}">LOG IN</a></div>
+      
+      </div>
+
+    </div> <!--cart-wishlist-content-->
+
+    {% endblock %}
+</div>
+
+
+
+</body>
+
+
+  {% block scripts %}
+  <script type="text/javascript" src="{% static '/js/cart.js' %}"></script>
+
+  <script>
+    let form_field = document.getElementsByTagName('input');
+    form_field[2].placeholder = 'Username';
+    form_field[3].placeholder = 'First Name';
+    form_field[4].placeholder = 'Password';
+    form_field[5].placeholder = 'Last Name';
+    form_field[6].placeholder = 'Re-enter Password';
+    form_field[7].placeholder = 'Email';
+
+    console.log(form_field)
+
+  </script>
+
+
+  {% endblock scripts %}
+
+
+</html>
+

@@ -1,0 +1,273 @@
+.about-shape {
+    display:flex;
+    justify-content:center;
+    height:auto;
+    width:100%;
+}
+
+.about-shape-1 {
+    clip-path: polygon(0% 41.65%, 100% 0.37%, 100% 54.44%, 100% 100%, 0% 100%);
+    background-color: #D9D9D9;
+    width:450px;
+    height:590px;
+    margin-right:80px;
+    overflow:hidden;
+} /*media query: 35%*/
+
+.about-shape-2 {
+    clip-path: polygon(0% 41.65%, 100% 0.37%, 100% 54.44%, 100% 100%, 0% 100%);
+    background-color: #D9D9D9;
+    width:450px;
+    height:590px;
+    overflow:hidden;
+    rotate: 180deg;
+}
+
+.about-logo-div {
+    z-index:1;
+    position:absolute;
+    top:300px;
+    /* height:50%; */
+    width:200px;
+    
+}
+
+.about-logo {
+    width:100%;
+    height:100%;
+}
+
+.about-company {
+    /* border:2px solid black; */
+    margin-top:80px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    max-width:1186px;
+}
+
+/* .about-usp {
+    
+    width:90%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    
+} */
+
+.about-intro {
+    font-size:17px;
+    font-weight:400;
+}
+
+.about-identity-cont {
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+    flex-wrap:wrap;
+    margin-top:75px;
+}
+
+.about-identity {
+    width:302px;
+    /* border:2px solid black; */
+    margin-bottom:50px;
+}
+
+.about-identity-heading {
+    width:100%;
+    text-align:center;
+    color:#121147;
+    font-size:22px;
+    margin:10px 0px 10px 0px;
+}
+
+.usp-whatis-vision-mission {
+    /* border:2px solid black; */
+    margin-top:92px;
+}
+
+.usp-whatis {
+    display:grid;
+    grid-template-columns: auto 317px;
+    justify-content:space-evenly;
+    grid-column-gap:101px;
+    margin-bottom:87px;
+}
+
+.usp-vision-mission {
+    display:grid;
+    grid-template-columns: 317px auto;
+    justify-content:space-evenly;
+    grid-column-gap:101px;
+}
+
+.usp-phrase {
+    max-width:748px;
+}
+
+.usp-phrase-text {
+    font-weight:500;
+    font-size:18px;
+    text-align:justify;
+}
+
+.usp-frame {
+    background:#D9D9D9;
+    border-radius:20px;
+    height:560px;
+}
+
+
+
+.usp-phrase-text > ul > li {
+    list-style-type:circle;
+    font-weight:500;
+    font-size:18px;
+    margin:15px 0px 15px 0px;
+    text-align:justify;
+}
+
+
+/*RESPONSIVE < 790px whatis-vision-mission */
+.usp-whatis-vision-mission-resp {
+    display:none;
+}
+
+
+.usp-frame-cont-resp {
+    width:100%;
+    display:flex;
+    justify-content:space-around;
+}
+
+.usp-frame-resp {
+    width:200px;
+    height:400px;
+    background:#D9D9D9;
+    border-radius:20px;
+}
+
+.usp-phrase-text-resp {
+    margin:50px;
+    font-size:16px;
+}
+
+.usp-phrase-text-resp > ul > li {
+    font-size:17px;
+
+}
+
+@media screen and (max-width: 790px) {
+
+    .usp-whatis-vision-mission-resp {
+        display:block;
+    }
+
+    .usp-whatis-vision-mission {
+        display:none;
+    }
+
+    .about-shape {
+        flex-wrap:wrap;
+        flex-direction:column-reverse;
+        align-items:center;
+        justify-content:flex-start;
+
+    }
+
+    .about-shape-1 {
+        margin-right:0px;
+        position:relative;
+        bottom:180px;
+    }
+
+    .about-logo-div {
+        top:500px;
+    }
+
+    .about-company {
+        margin-top:0px;
+    }
+
+    .about-usp {
+        width:80%;
+    }
+}
+
+.about-video {
+    width:40vw;
+    height:20vw;
+    border:1px solid rgba(1,1,1,0.5);
+    border-radius:10px;
+    margin:40px 0px 40px 0px;
+}
+
+/*MEET THE TEAM*/
+.meetTheTeam-shape {
+    width:70%;
+    height:47px;
+    background:#121147;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:50px;
+}
+
+.meetTheTeam-shape > div {
+    font-size:22px;
+    font-weight:700;
+    color:white;
+}
+
+.meetTheTeam-cont {
+    display:flex;
+    justify-content:center;
+    width:100%;
+    flex-wrap:wrap;
+    margin-bottom:100px;
+}
+
+.meetTheTeam-card {
+    width:153px;
+    height:207px;
+    border-radius:26px;
+    border:1px solid rgba(1,1,1,0.8);
+    background:white;
+    margin:20px;
+}
+
+.meetTheTeam-label {
+    position:relative;
+    top:148px;
+    z-index:1;
+    display:flex;
+    justify-content:space-around;
+    flex-direction:column;
+    width:153px;
+    height:35px;
+    background:#121147;
+    border-radius:2px;
+    padding:15px;
+}
+
+.meetTheTeam-label > div:first-child {
+    font-size:9px;
+    font-weight:800;
+    color:white;
+    line-height:1.2;
+}
+
+.meetTheTeam-label > div:last-child {
+    font-size:9px;
+    font-weight:500;
+    color:white;
+    line-height:1.2;
+}
+
+.meetTheTeam-label > div:only-child {
+    font-size:9px;
+    font-weight:800;
+    color:white;
+    line-height:1.2;
+}

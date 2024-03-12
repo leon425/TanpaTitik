@@ -1,0 +1,38 @@
+Make qris. 
+Display bca rekenin
+
+NAVBAR 
+Responsive navbar flex direction column to tight
+
+COLLECTION
+Any button, links, Hover things
+
+RESPONSIVE 
+media Queries for collection, Testimony, FAQs, footer
+Button Carousel Responsive so fucking ugly
+
+FAQs
+Animate the arrow button when the FAQ is opened. Find out how to access the collapse button in bootstrap
+
+PRODUCTS PAGE
+
+PRODUCTS_OFFER
+When over the time limit, the offer is deleted and products.offer turns back to false - live time how
+
+
+CART & WISHLIST
+Responsive design
+footer yg bener dong
+
+CART
+button animation for 'add to cart' and 'add to wishlist'
+heart icon at picture
+
+ADDITIONAL FOR PRODUCTS
+tax
+discount
+terms of use
+coupon
+
+DELIVERY
+delivery date & shipping cost & shipping mechanism 

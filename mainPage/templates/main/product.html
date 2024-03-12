@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+{% extends "main/base2.html" %}
+{% load static %}
+{% load custom_filters %}
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>{% block title %}{{thisProduct}} | TanpaTitik {% endblock %}</title>
+
+    {% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/homePage/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/product/product.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/product/product-collection.css' %}">
+    {% endblock head %}
+
+
+</head>
+
+<body>
+
+<div id="content" ,name="content", class="main" style="width:100%;">
+    {% block content %} <!--inside this block content, the elements will be pasted to the parent elements which is base2.html-->
+    
+        <div class="container product-page">
+            <div class="product-page-head">
+                <div class="product-page-head-1">
+                     <div class="head-img-div">
+
+                      <!--Carousel-->
+                      <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                          <div class="carousel-item active">
+                            <div class="img-product-cont">
+                              <img class="img_view" src="{{thisProduct.img.url}}" alt="{{thisProduct.name}}">
+                            </div>
+                          </div>
+
+                          {% for img in thisProduct_img %}
+                              <div class="carousel-item">
+                                <div class="img-product-cont">
+                                <img class="img_view" src="{{img.img.url}}" alt="{{img.name}}">
+                              </div>
+                              </div>
+                          {% endfor %} 
+
+
+                        </div> <!--carousel-inner-->
+
+                        <button class="carousel-control-prev product-carousel-button-cont" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                          <div class="product-carousel-button">
+                            <ion-icon name="chevron-back-outline" style="color:rgba(1,1,1,1);font-size:30px"></ion-icon>
+                          </div>
+                        </button>
+                        <button class="carousel-control-next product-carousel-button-cont" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                          <div class="product-carousel-button">
+                            <ion-icon name="chevron-forward-outline" style="color:rgba(1,1,1,1);font-size:30px"></ion-icon>
+                          </div>
+                        </button>
+                      </div> <!--carousel-->
+
+                    </div>  
+                    {% comment %} <div class="img-id">1/12</div> {% endcomment %} <!--ntar dlu-->
+
+                    <!--Description-->
+                    <div class="head-desc not-mobile">
+                        <div class="desc-div-head">DESCRIPTION</div>
+                        <!--Description Dropdown-->
+                        <!--Overview-->
+                        <div class="desc-div-container">
+                            <div class="desc-div" type="button" data-bs-toggle="collapse" data-bs-target="#overview" aria-expanded="false" aria-controls="collapseExample">
+                              <div class="desc-div-title">Overview</div>
+                              <div class="desc-head-button"><ion-icon name="chevron-down-outline" style="color:rgba(1,1,1,0.6);width:50px;height:20px;"></ion-icon></div>
+                            </div>
+                            
+                            <div class="collapse desc-div-answer" id="overview">
+                              <div>{{thisProduct.overview}}</div>
+                            </div>
+                          </div> <!--desc-div-container-->
+
+                          <!--Materials-->
+                        <div class="desc-div-container">
+                            <div class="desc-div" type="button" data-bs-toggle="collapse" data-bs-target="#materials" aria-expanded="false" aria-controls="collapseExample">
+                              <div class="desc-div-title">Materials</div>
+                              <div class="desc-head-button"><ion-icon name="chevron-down-outline" style="color:rgba(1,1,1,0.6);width:50px;height:20px;"></ion-icon></div>
+                            </div>
+                            
+                            <div class="collapse desc-div-answer" id="materials">
+                              <div>{{thisProduct.material}}</div>
+                            </div>
+                          </div> <!--desc-div-container-->
+
+                    </div> <!--head-desc--> <!--Description-->
+                </div> <!--product-page-head-1-->
+
+                <div class="product-page-head-2">
+                  <div class="thisproduct-name">{{thisProduct.name}}</div>
+
+                  {% if thisProduct.offer == True %}
+                    <div class="product-old-price">Rp <div>{{thisProduct.price|add_fullstop}}</div></div>
+                  {% else %}
+                    <div class="product-old-price"></div>
+                  {% endif %}
+                  
+                  <div class="product-price-review">
+                    {% if thisProduct.offer == True %}
+                    <div class="product-price">Rp {{thisProduct.products_offer.final_price|add_fullstop}}</div>
+                    {% else %}
+                    <div class="product-price" style="">Rp {{thisProduct.price|add_fullstop}}</div>
+                    {% endif %}
+
+                    <div class="product-review" id="product-star" data-review="{{thisProduct.set_final_star}}">
+                      <div id="stars" class="stars" data-product-id="{{thisProduct.id}}">
+                        <div class="{{thisProduct.id}}_1">
+                          <ion-icon name="star-sharp" class="star"></ion-icon>                 
+                        </div>
+                        <div class="{{thisProduct.id}}_2">
+                          <ion-icon name="star-sharp" class="star"></ion-icon>            
+                        </div>
+                        <div class="{{thisProduct.id}}_3">
+                          <ion-icon name="star-sharp" class="star"></ion-icon>                 
+                        </div>
+                        <div class="{{thisProduct.id}}_4">
+                          <ion-icon name="star-sharp" class="star"></ion-icon>
+                        </div>
+                        <div class="{{thisProduct.id}}_5">
+                          <ion-icon name="star-sharp" class="star"></ion-icon>             
+                        </div>
+                      </div>
+                      <div class="review-amount">({{thisProduct.set_final_star_len}})</div>  
+                    </div> <!--product-review-->
+
+                  </div> <!--product-price-review-->
+
+                  <div class="product-bio">{{thisProduct.bio}}</div>
+
+
+                  <!--Description for mobile-->
+                  <div class="head-desc mobile">
+                    <div class="desc-div-head">DESCRIPTION</div>
+                    <!--Description Dropdown-->
+                    <!--Overview-->
+                    <div class="desc-div-container">
+                        <div class="desc-div" type="button" data-bs-toggle="collapse" data-bs-target="#overview" aria-expanded="false" aria-controls="collapseExample">
+                          <div class="desc-div-title">Overview</div>
+                          <div class="desc-head-button"><ion-icon name="chevron-down-outline" style="color:rgba(1,1,1,0.6);width:50px;height:20px;"></ion-icon></div>
+                        </div>
+                        
+                        <div class="collapse desc-div-answer" id="overview">
+                          <div>{{thisProduct.overview}}</div>
+                        </div>
+                      </div> <!--desc-div-container-->
+
+                      <!--Materials-->
+                    <div class="desc-div-container">
+                        <div class="desc-div" type="button" data-bs-toggle="collapse" data-bs-target="#materials" aria-expanded="false" aria-controls="collapseExample">
+                          <div class="desc-div-title">Materials</div>
+                          <div class="desc-head-button"><ion-icon name="chevron-down-outline" style="color:rgba(1,1,1,0.6);width:50px;height:20px;"></ion-icon></div>
+                        </div>
+                        
+                        <div class="collapse desc-div-answer" id="materials">
+                          <div>{{thisProduct.material}}</div>
+                        </div>
+                      </div> <!--desc-div-container-->
+                </div> <!--head-desc--> <!--Description for mobile-->
+
+                  <!--Color-->
+                  <div class="product-form">
+                    <div class="product-form-heading">Color:</div> <!-- the color displayed is the clicked color using JS-->
+                    <div class="product-form-container">
+                        <div class="product-form-box" style="background-color:{{thisProduct.color_hex}}"></div>
+                    </div> 
+                  </div> <!--product-form-->
+
+                  <!--Size-->
+                  <div class="product-form">
+                    <div class="product-form-heading">Size:</div> <!-- the color displayed is the clicked color using JS-->
+                    <div class="product-form-container">
+                        <div class="product-form-box" style="border:1px solid rgba(1,1,1,0.2);display:flex;justify-content:center;align-items:center">
+                          <div style="color:rgba(1,1,1,0.5);font-size:12px;">{{thisProduct.size}}</div>
+                        </div>
+                    </div>
+                  </div> 
+
+                    <!--Quantity & Size Chart-->
+                    <div class="product-form">
+                      <div class="product-form-heading">Quantity</div>
+                      <div class="product-form-container" style="justify-content:space-between;">
+                        <div class="product-quantity-dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                          <div style="color:rgba(1,1,1,0.5);width:20px;height:auto;">1</div>
+                          <div style="height:20px;"><ion-icon name="caret-down-outline" style="color:rgba(1,1,1,0.15);font-size:20px;"></ion-icon></div>
+                          
+                          <!--Dropdown Menu-->
+                          <ul class="dropdown-menu" style="width:122px !important;">
+                            {% for i in thisProduct.stock|custom_range %} <!--wrong way--> <!--sesuai dengan formnya-->
+                              <li style="width:122px !important;"><a class="dropdown-item" href="#" style="width:122px !important;">{{forloop.counter}}</a></li>
+                            {% endfor %} 
+                          </ul>
+                        </div>
+
+                        <div class="size-chart">
+                          <div class="size-chart-img-div"><img class="size-chart-img" src="{{ruler_icon.img.url}}" alt="{{ruler_icon}}"></div>
+                          <div class="size-chart-text">SIZE CHART</div>
+                        </div>
+
+                      </div> <!--product-form-container-->
+                    </div><!--product-form-->
+                    {% if user.is_authenticated %}
+
+                      {% if thisProduct.stock > 0 %}
+                        {% if itemInCart.count >= 1%} 
+                          <div class="add-to cartButton" data-product="{{thisProduct.id}}" data-actioncart="remove" style="margin-top:34px;background:#121147;"><div style="color:white;font-weight:800;font-size:20px;">ADDED TO CART</div></div>
+                        {% else %}
+                          <div class="add-to cartButton" data-product="{{thisProduct.id}}" data-actioncart="add" style="margin-top:34px;background:#121147;"><div style="color:white;font-weight:800;font-size:20px;">ADD TO CART</div></div> 
+                        {% endif %}
+                      {% else %}
+                      <div class="add-to cartButton" style="margin-top:34px;background:#121147;" data-bs-toggle="popover" data-bs-title="Product Out Of Stock" data-bs-content="We're Sorry. Unfortunately, our product is currently out of stock"><div style="color:white;font-weight:800;font-size:20px;">ADD TO CART</div></div>
+                      {% endif %}
+
+                    <!--If user is not logged in-->
+                    {% else %}
+                    <div class="add-to" data-bs-toggle="modal" data-bs-target="#exampleModalyes" style="margin-top:34px;background:#121147;"><div style="color:white;font-weight:800;font-size:20px;">ADD TO CART</div></div> 
+                      
+                    {% endif%}
+
+
+                    {% if user.is_authenticated%}
+                      {% if itemInWishlist.count == 1 %}
+                      <div class="add-to wishlistButton" data-product="{{thisProduct.id}}" data-actionWishlist="remove" style="border:1px solid black;"><div style="font-weight:700;font-size:19px;">ADDED TO WISHLIST</div></div>
+                      {% else %}
+                      <div class="add-to wishlistButton" data-product="{{thisProduct.id}}" data-actionwishlist="add" style="border:1px solid black;"><div style="font-weight:700;font-size:19px;">ADD TO WISHLIST</div></div>
+                      {% endif %}
+                    {% else %}
+                      <div class="add-to wishlistButton" data-bs-toggle="modal" data-bs-target="#exampleModalyes"  style="border:1px solid black;"><div style="font-weight:700;font-size:19px;">ADD TO WISHLIST</div></div>
+                    {% endif %}
+                    
+
+                    
+                    
+
+                </div> <!--product-page-head-2-->
+            </div> <!--product-page-head-->
+
+            <div class="product-page-review-head">
+              <div style="font-size:16px;font-weight:600;margin-right:20px;">REVIEWS</div>
+              <div class="product-review" data-review="">
+                <div id="overall-star" class="stars" data-product-id="{{thisProduct.id}}">
+                  <div class="{{thisProduct.id}}_1">
+                    <ion-icon name="star-sharp" class="star"></ion-icon>                 
+                  </div>
+                  <div class="{{thisProduct.id}}_2">
+                    <ion-icon name="star-sharp" class="star"></ion-icon>            
+                  </div>
+                  <div class="{{thisProduct.id}}_3">
+                    <ion-icon name="star-sharp" class="star"></ion-icon>                 
+                  </div>
+                  <div class="{{thisProduct.id}}_4">
+                    <ion-icon name="star-sharp" class="star"></ion-icon>
+                  </div>
+                  <div class="{{thisProduct.id}}_5">
+                    <ion-icon name="star-sharp" class="star"></ion-icon>             
+                  </div>
+                </div>
+                <div class="review-amount">({{thisProduct.set_final_star_len}})</div>  
+              </div> <!--product-review-->
+            </div> <!--product-review-head-->
+
+            <div class="product-review-rating">
+              <div style="font-size:16px;font-weight:600;margin-right:20px;margin-bottom:10px;">RATINGS</div>
+              {% for i in '01234'|make_list %}
+              <div class="product-review" data-review="{{thisProduct.set_final_star}}"> <!---->
+                <div id="{{thisProduct.id}}_{{forloop.counter}}stars" class="stars">
+                  <div class="star_{{forloop.revcounter}}">
+                    <ion-icon name="star-sharp" class="star"></ion-icon>                 
+                  </div>
+                  <div class="star_{{forloop.revcounter}}">
+                    <ion-icon name="star-sharp" class="star"></ion-icon>            
+                  </div>
+                  <div class="star_{{forloop.revcounter}}">
+                    <ion-icon name="star-sharp" class="star"></ion-icon>                 
+                  </div>
+                  <div class="star_{{forloop.revcounter}}">
+                    <ion-icon name="star-sharp" class="star"></ion-icon>
+                  </div>
+                  <div class="star_{{forloop.revcounter}}">
+                    <ion-icon name="star-sharp" class="star"></ion-icon>             
+                  </div>
+                </div>
+                <div class="review-amount">(0)
+                {% comment %} {% with array_key=thisProduct.id %}
+                  {% with array_value=product_star_dict|dict_lookup:array_key|get_array_value:forloop.counter %}
+                    {{ array_value }}
+                  {% endwith %}
+                {% endwith %}  {% endcomment %}
+               </div>   
+              </div> <!--product-review-->
+              {% endfor %}
+            </div>
+            {% comment %} <button id="write-a-review">WRITE A REVIEW</button> {% endcomment %}
+
+            <div class="product-review-text">
+              <div class="product-review-text-heading">{{thisProduct.set_final_star_len}}
+                {% if thisProduct.set_final_star_len > 1 %}
+                  reviews
+                {% else %}
+                  review
+                {% endif %}
+              </div>
+              <div class="product-review-text-container">
+                {% for review in thisProduct.products_review_set.all %}
+                <div class="product-review-text-content">
+                  <div class="product-review-content-heading">{{review.customer}}</div>
+
+                  <div class="product-review-content-star-date" data-review-id="{{review.id}}">
+                    <div class="customer-review stars" data-customer-review="{{review.star}}">
+                      <div class="{{review.id}}_customer_1">
+                        <ion-icon name="star-sharp" class="star star-customer"></ion-icon>                 
+                      </div>
+                      <div class="{{review.id}}_customer_2">
+                        <ion-icon name="star-sharp" class="star star-customer"></ion-icon>            
+                      </div>
+                      <div class="{{review.id}}_customer_3">
+                        <ion-icon name="star-sharp" class="star star-customer"></ion-icon>                 
+                      </div>
+                      <div class="{{review.id}}_customer_4">
+                        <ion-icon name="star-sharp" class="star star-customer"></ion-icon>
+                      </div>
+                      <div class="{{review.id}}_customer_5">
+                        <ion-icon name="star-sharp" class="star star-customer"></ion-icon>             
+                      </div>
+                    </div> <!--stars-->
+                    <div class="product-review-content-date">{{review.date}}</div>
+                  </div> <!--product-review-content-star-date"-->
+
+                  <div class="product-review-content-content">{{review.text}}</div>
+
+                  <div class="helpful-unhelpful">Helpful?
+                    <div><img class="thumbs" src="{{thumbs_up.img.url}}" style="margin-left:1px;"></div>
+                    <div><img class="thumbs" src="{{thumbs_down.img.url}}" style="-webkit-transform: scaleX(-1);transform:scaleX(-1);"></div>
+                  </div>
+
+                </div> <!--product-review-text-content-->
+                {% endfor %}
+
+                {% comment %} {% if thisProduct.products_review_set.all > 4 %}
+                  <div class="show-all-reviews">Show all reviews</div>
+                {% endif %} {% endcomment %}
+
+              </div> <!--product-review-text-container-->
+            </div> <!--product-review-text   REVIEW-->
+
+
+            <div style="width:100%;display:flex;justify-content:center;"><div class="product-col-recommentation" style="font-size:30px;margin-top:30px;margin-bottom:15px;">RECOMMENDED FOR YOU</div></div>
+
+            <!--CAROUSEL-->
+            <div class="swiper mySwiper">
+            <div class="swiper-wrapper col-products" style=""> <!--Product Container-->
+                {% for product in products %}
+                {% if product.id != thisProduct.id %} 
+                <div class="swiper-slide product" style="">
+                <a href="/product/{{product.id}}" style="width:100%;height:100%;" >
+                  <div class="product-img-container">
+                    <img class="img_product" src="{{product.img.url}}" alt="{{product.color_circle}}" style="position:relative;bottom:71px;">
+      
+                    {% if user.is_authenticated %}
+                      {% if product.is_wishlist|length >= 1 %}
+                    {% for wishlist in product.is_wishlist %}
+                      {% if wishlist.customer.user == user %}
+                      <div class="heart is-active update-cart" data-product="{{product.id}}" data-action="remove" onclick="event.preventDefault()"></div>
+                      {% else %}
+                      <div id="heart{{product.id}}" class="heart update-cart" data-product="{{product.id}}" data-action="add" onclick="event.preventDefault()"></div>
+                      {% endif %}
+                    {% endfor %}
+                  {% else %}
+                  <div id="heart{{product.id}}" class="heart update-cart" data-product="{{product.id}}" data-action="add" onclick="event.preventDefault()"></div>
+                  {% endif %}
+
+                  {% else %}
+                  <!-- Button trigger modal -->
+                  <div class="heart disabled" style="transition:none;" onclick="event.preventDefault()" data-bs-toggle="modal" data-bs-target="#exampleModalyes"></div>
+                  {% endif %}
+                </div>
+      
+                  <div class="product-gender-size">
+                    <div class="product-gender">{{product.gender}}</div>
+                    <div class="product-size">{{product.size}}</div>
+                  </div>
+      
+                  <div class="product-color-container">
+                      <div class="product-color" style="background-color:{{product.color_hex}}">
+      
+                      <!--When hover, the name of the color is displayed => {{color.name}}--> <!--The product must be displayed only 4-->
+                      </div>
+                  </div>
+                  
+                  <div class="product-name">{{product.name}}</div>
+      
+                  {% if product.offer == False %} <!--If there isn't any discount-->
+                    <div class="product-status" style="margin-bottom:10px;">
+                      {% if product.status != None %}
+                        {{product.status}}
+                      {% endif %}
+                    </div>
+                    <div class="product-price" style="margin-bottom:10px;">Rp {{product.price|add_fullstop}}</div>
+      
+                  {% else %}
+                    <div class="product-price-past">Rp {{product.price|add_fullstop}}</div>
+                    <div class="product-price price-final" style="color:#121147">Rp {{product.products_offer.final_price|add_fullstop}}</div>
+                    <!--Change the datetime format (Ugly)-->
+                    <div class="offer-text">Limited Offer from {{product.products_offer.date_start}} - {{product.products_offer.date_end}}</div>
+                  {% endif %}
+      
+                  <div class="product-review" data-review="{{product.set_final_star}}">
+                    <div id="{{product.id}}_stars" class="stars" data-product-id="{{product.id}}">
+      
+                      <div id="{{product.id}}_1">
+                        <ion-icon name="star-sharp" class="star"></ion-icon>                 
+                      </div>
+                      <div id="{{product.id}}_2">
+                        <ion-icon name="star-sharp" class="star"></ion-icon>            
+                      </div>
+                      <div id="{{product.id}}_3">
+                        <ion-icon name="star-sharp" class="star"></ion-icon>                 
+                      </div>
+                      <div id="{{product.id}}_4">
+                        <ion-icon name="star-sharp" class="star"></ion-icon>
+                      </div>
+                      <div id="{{product.id}}_5">
+                        <ion-icon name="star-sharp" class="star"></ion-icon>             
+                      </div>
+      
+                    </div>
+                    <div class="review-amount">({{product.set_final_star_len}})</div>  
+                  </div>
+                  
+                  <!--There are 2 scenarios. Build the if else statement now relating to the product database. First scenario: offer = true, second scenario: offer = false-->
+      
+                </a>
+                </div><!--product-->
+                {% endif %}
+                {% endfor %}
+            </div> <!--col-products--> <!--swiper-wraper-->
+
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev but-prev"></div>
+            <div class="swiper-button-next but-next"></div>
+
+          </div> <!--swiper mySwiper-->
+
+
+
+
+      </div> <!--product-page-->
+
+      <!--MODAL FOR NOT LOGGED IN USER -->
+      <div class="modal fade" id="exampleModalyes" tabindex="1" aria-labelledby="exampleModalLabelyes" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabelyes" style="font-weight:700">Please Log In To Start Shopping</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-footer" style="display:flex;justify-content:center;align-items:center;">
+                <a href="{% url 'login_page' %}"><button type="button" class="btn btn-primary" style="width:110px !important;background:#121147 !important;">LOG IN</button></a>
+                </div>
+
+            </div> <!--modal-content-->
+        </div> <!--modal-dialog-->
+    </div> <!--modal-->
+
+    {% endblock %}
+</div>
+
+
+</body>
+
+
+  {% block scripts %}
+  
+
+  <!--Enable Popover in Bootstrap 5.2 -->
+  <script>
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+    })
+  </script>
+  
+  <script type="text/javascript" src="{% static '/js/home.js' %}"></script>
+  <script type="text/javascript" src="{% static '/js/product.js' %}"></script>
+  <script>
+    let user = '{{request.user}}'
+    
+  </script>
+
+  <!--Setting the CSRF Token for Django AJAX, so that you can do the promise and fetch calls-->
+  <script>
+    function getToken(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+    }
+    const csrftoken = getToken('csrftoken');
+  </script>
+
+  <script>
+    // product-review
+    let stars = document.getElementById("product-star")
+    let product_id = document.getElementById("stars");
+    let data_product_id = Object.values(product_id.dataset);
+    data_product_id = parseInt(data_product_id[0]);
+
+    let product_stars = stars.dataset;
+    let product_star = Object.values(product_stars); //get the value of the object and transform it into an array
+    product_star = parseInt(Math.floor(product_star[0]));
+    //console.log(product_star);
+
+
+   for (let check=1; check<=product_star; check++) {
+      let checked_star = document.getElementsByClassName(data_product_id+"_"+check);
+      //console.log(data_product_id+"_"+check);
+      for (let i=0; i<checked_star.length; i++) {
+        //console.log("star "+i); Stars that's going to be checked
+        checked_star[i].firstElementChild.style.color = '#EBBE00';
+      }
+    } 
+
+    // product-review-rating
+    for (let i=1; i<=5; i++) {
+      let star_check = document.getElementsByClassName("star_"+i);
+      for (let j=0; j<i; j++) {
+        star_check[j].firstElementChild.style.color = '#EBBE00';
+      }
+
+    }
+
+    // product-rating per customer
+    let customer_rating = document.getElementsByClassName("customer-review");
+    let rating_id = document.getElementsByClassName("product-review-content-star-date");
+    for (let i=0; i<customer_rating.length; i++) { // per customer rating
+      let customer_star= customer_rating[i].dataset;
+      customer_star = Object.values(customer_star); //get the value of the object and transform it into an array
+      customer_star = parseInt(Math.floor(customer_star[0]));
+
+      let customer_rating_id = rating_id[i].dataset;
+      customer_rating_id = Object.values(customer_rating_id);
+      customer_rating_id = parseInt(Math.floor(customer_rating_id[0]));
+
+      for (let j=1; j<=customer_star; j++) { //per star 
+        let customer_star = document.getElementsByClassName(customer_rating_id+"_customer_"+j);
+        for (let type=0; type<customer_star.length; type++) {
+          customer_star[type].firstElementChild.style.color = '#EBBE00';
+        }
+      }
+
+    }
+    
+    
+
+  </script>
+
+
+  {% endblock scripts %}
+
+
+</html>
+

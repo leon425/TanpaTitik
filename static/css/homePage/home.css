@@ -1,0 +1,370 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    font-family: 'Raleway';
+
+}
+
+a {
+    text-decoration: none;
+}
+
+li {
+    list-style-type:none;
+}
+
+.display {
+    background-color:#F3F9FB;
+    height:auto;
+    min-height:720px;
+    width:100%;
+    max-width:1600px;
+    padding:0px;
+    display:flex;
+    flex-direction:row;
+    border-bottom:1px solid rgba(1,1,1,0.15)
+}
+
+.display_title {
+    display:flex;
+    flex-direction:column;
+    /* align-items:center; */
+    width:48%;
+    margin-bottom:50px;
+    padding-left:8.5vw;
+    /* border: 2px solid black; */
+    padding-top:120px;
+    padding-right:0px;
+}
+
+
+.headline {
+    margin-top:8vw;
+    width:90%;
+    font-size:60px;
+    font-weight:600;
+    padding:0px;
+    margin-right:0px;
+    margin-bottom:33px;
+}
+
+.subheadline{
+    width:90%;
+    font-size:20px;
+    font-weight:300;
+    margin-bottom:20px;
+    padding:0px;
+    line-height:1.2;
+   
+}
+
+/*Call to Action*/
+.call_to_action {
+    width:90%;
+    padding:0px;
+    display:flex;
+    align-items:center;
+
+}
+
+.call_to_action > button {
+    width:156px;
+    font-size:22px;
+    font-weight:600;
+    float:left;
+    margin-right:10px;
+    height:53px;
+    background-color:#121147;
+    border: none;
+    
+}
+
+.call_to_action > div { /*Testimonials besides the call to action button*/
+    width:35%;
+    font-size:0.85rem;
+    display:inline-block;
+}
+
+/*Display Photo*/
+.display_photo {
+    width:30%;
+    /* border:2px solid blue; */
+}
+
+.carousels {
+    width:100%;
+    height:100%;
+    margin:0px;
+}
+
+.parent_of_circle {
+    display:flex;
+    justify-content:center;
+    height:100%;
+    width:100%;
+    margin:0px;
+}
+
+.circle {
+    /* width:360px;
+    height:360px; */
+    width:100%;
+    height:0;
+    padding-bottom:100%;
+    border-radius: 1000px;
+    margin-top:180px;
+}
+
+/*Look at the combination between the image container and image*/
+.img_div {
+    overflow:hidden;
+    width:100%;
+    height:100%;
+    padding:0px;
+    z-index:1;
+    position:relative;
+    bottom:80px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    
+}
+
+.img_overview {
+    width:250%;
+    height:250%;
+    position:relative;
+    left:5%;
+    object-fit:contain;
+    z-index:1;
+    margin:0px !important;
+}
+
+.button_carousel {
+    width:40px;
+    /* background:red; */
+    height:100%;
+}
+
+.button_carousel > span {
+    color:black;
+    font-size:3.7vw;
+}
+/*before second child and after second child: line. set the status height, font weight, font size*/
+.display_status { 
+    width:22%;
+    height:790px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+.display_status > div {
+    height: 80px;
+    width: 140px;
+    font-size: 1.35vw;
+    font-weight: 600;
+    margin-bottom:20px;
+    padding:0px;
+    text-align:right;
+}
+
+
+.display_status > div:nth-child(2)::after, .display_status > div:first-child::after{
+    content:"";
+    display:block;
+    width:41px;
+    height:1px;
+    background:rgba(1,1,1,0.15);
+    margin-top:35px;
+    margin-left:97px;
+}
+
+/*The opacity is set to 0.15%*/
+.display_status > div:first-child, .display_status > div:last-child {
+    color:rgba(1,1,1,0.15);
+}
+
+.carousel_button {
+    color:white;
+    opacity:80%;
+}
+
+@media screen and (min-width: 1600px) {
+    /*Setting the max font size*/
+    .display_status > div {
+        font-size:20px;
+    }
+}
+
+/*Small Dekstop Checkpoint*/
+@media screen and (max-width: 1060px) {
+    .carousel_button {
+        color:black;
+        opacity:80%;
+    }
+
+    .headline {
+        font-size:2.7rem;
+    }
+
+    .subheadline {
+        font-size:0.8rem;
+    }
+
+    .call_to_action > button {
+        font-size:0.8rem;
+    }
+
+    .call_to_action > div {
+        font-size: 0.7rem;
+    }
+}
+
+/*Tablet And Phone*/
+@media screen and (max-width:930px) {
+
+    .carousel_button {
+        color:black;
+        opacity:80%;
+    }
+
+    .display {
+        flex-wrap:wrap;
+    }
+
+    .headline {
+        font-size:3.1rem;
+        text-align:center;
+    }
+
+    .subheadline {
+        font-size:1.2rem;
+        text-align:center;
+    }
+
+    .call_to_action {
+        width:85%;
+        padding:0px;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+    }
+
+    .call_to_action > button {
+        font-size:1rem;
+        width:150px;
+        height:50px;
+        float:none;
+    }
+
+    .call_to_action > div {
+        font-size: 0.9rem;
+        display:block;
+        text-align:center;
+        width:200px;
+        margin-top:10px;
+    }
+
+    .display_title {
+        width:100%;
+    }
+
+    /*Photo Responsive*/
+    .display_photo {
+        width:100%;
+        display:flex;
+        justify-content:center;
+        margin-bottom:50px;
+    }
+
+    .carousels {
+        height:100%;
+        width:80%;
+        display:flex;
+        justify-content:center;
+    }
+
+    .parent_of_circle {
+        display:flex;
+        justify-content:center;
+        width:60%;
+    }
+
+    .circle {
+        position:relative;
+        bottom:90px;
+    }
+
+    .img_div {
+        position:relative;
+        
+    }
+    /*Photo Responsive*/
+
+    .display_status {
+        display:none;
+    }
+
+}
+
+/* .heart-container {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:yellow;
+} */
+
+.heart {
+    /* position:relative;
+    left:2px;
+    bottom:20px; */
+    width: 80px;
+    height: 80px;
+    background: url("https://cssanimation.rocks/images/posts/steps/heart.png") no-repeat;
+    background-position: 0 0;
+    cursor: pointer;
+    transition: background-position 1s steps(28);
+    transition-duration: 0s;
+
+    position: absolute; 
+    top: 14.5px; 
+    left: 163px; 
+    transform: translate(-50%, -50%);
+    
+    &.is-active {
+      transition-duration: 1s;
+      background-position: -2800px 0;
+    }
+  }
+
+.disabled {
+    
+    &.is-active {
+        background: url("https://cssanimation.rocks/images/posts/steps/heart.png") no-repeat;
+    }
+}
+
+.home-heading {
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    width:100%;
+    margin:80px 0px 80px 0px;
+}
+
+.home-heading-text {
+    font-size:30px;
+    font-weight:700;
+    color:#121147;
+}
+
+.home-heading-shape {
+    width:70px;
+    height:8px;
+    border-radius:15px;
+    background-color:#121147;
+}

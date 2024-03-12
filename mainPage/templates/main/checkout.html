@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+{% extends "main/base2.html" %}
+{% load static %}
+{% load custom_filters %}
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>{% block title %} Checkout | TanpaTitik{% endblock %}</title>
+
+    {% block head %}
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/checkout/checkout.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/cart_wishlist/cart.css' %}">\
+    <link rel="stylesheet" type="text/css" href="{% static '/css/product/product-collection.css' %}">
+
+    <!--HTMX-->
+    <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+   
+    {% endblock head %}
+
+
+</head>
+
+<body>
+
+<div id="content", name="content", class="main" style="width:100%">
+    {% block content %} <!--itnside this block content, the elements will be pasted to the parent elements which is base2.html-->
+    <div class="container cart-wishlist-content">
+        <div class="cart-wishlist-heading" style="margin-bottom:75px;">CHECKOUT</div>
+        <div class="checkout-page">
+            <div class="checkout-page-1"> 
+                <div class="delivery">
+                    <div class="delivery-payment-heading">1. DELIVERY OPTION</div>
+                    <div class="delivery-box">
+                        <div class="ship-to-customer">Ship To Address: {{customer}}</div>
+                        <!--if none none none none none-->
+                        <div class="address">{{newAddress.address}}, {{newAddress.district}}, {{newAddress.city}}, {{newAddress.province}}, {{newAddress.zipcode}}</div>
+
+                        <div class="ship-to-customer" style="border-top:1px solid rgba(1,1,1,0.4);margin-top:30px;padding-top:30px;">Delivery Date</div>
+                        
+                        <div class="address" style="font-family:'Inter'">Service: <div style="display:inline-block;font-weight:700;font-family:'Inter';">POS Indonesia Reguler</div></div> <!--address-->
+                        <div class="address" style="font-family:'Inter'">Shipping Cost: <div style="display:inline-block;font-weight:700;font-family:'Inter';">RP {{order.shipping_cost|add_fullstop}}</div></div>
+                        <div class="address">Estimated delivery time: <div style="display:inline-block;font-weight:700;font-family:'Inter';">{{order.delivery_time}} Day(s)</div></div>
+
+
+                    </div>
+                    <div class="button-container" style="">
+                        <div class="register-new-address" data-bs-toggle="modal" data-bs-target="#exampleModal"><div>REGISTER NEW ADDRESS</div></div>
+                        {% comment %} <div class="continue-to-payment"><div>CONTINUE TO PAYMENT</div></div> {% endcomment %}
+                    </div>
+
+        
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel" style="font-weight:700">REGISTER A NEW ADDRESS</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <form action="" method="post">
+                                    {% csrf_token %}
+                                    {{form_shipping.as_p}}
+                                    <div style="width:100%;display:flex;justify-content:center;align-items:center">
+                                    <button class="btn register-the-address" type="submit" name="oh" value="muah" data-bs-dismiss="modal" style="">CONTINUE</button>
+                                    </div>
+                                </form> 
+                                </div> <!--modal-body-->
+                                
+                            </div> <!--modal-content-->
+                        </div> <!--modal-dialog-->
+                    </div> <!--modal-->
+
+                    
+
+                </div> <!--delivery-->
+                
+                <div class="payment">
+                  {% if order.payment_method == "" or order.payment_method == None %}
+                    <div class="delivery-payment-heading">2.PAYMENT OPTION</div> 
+                    <div class="payment-box">
+
+                      <ul class="nav nav-pills payment-pill" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link pill-payment active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Cash On Delivery</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link pill-payment" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">QRIS</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link pill-payment" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Bank Transfer</button>
+                        </li>
+                      </ul>
+
+                      <div class="tab-content" id="pills-tabContent">
+
+                        <div class="tab-pane fade show active payment-tab" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                          <div class="info">
+                            Please make payment to carrier in cash when carrier deliveries your order
+                          </div>
+                          <div><button class="btn register-the-address payment-method" style="width:150px;font-size:12px;" data-method="Cash On Delivery">CONTINUE</button></div>
+                        </div>
+
+                        <div class="tab-pane fade payment-tab" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                          <div class="info">
+                            Click continue to proceed with the QRIS payment method. QR code will be displayed after you confirm your order details.
+                          </div>
+                          <div><button class="btn register-the-address payment-method" style="width:150px;font-size:12px;" data-method="QRIS">CONTINUE</button></div>
+                        </div>
+
+                        <div class="tab-pane fade payment-tab" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                          <div class="info">
+                            Click continue to proceed with the bank transfer payment method. The account number will be displayed after you confirm your order details.
+                          </div>
+                          <div><button class="btn register-the-address payment-method" style="width:150px;font-size:12px;" data-method="Bank Transfer">CONTINUE</button></div>
+                        </div>
+
+                        </div> <!--tab-content-->
+                      </div> <!--payment-box-->
+                        
+                    {% else %}
+
+                    <div style="width:100%;display:flex;justify-content:space-between;padding-right:10px;">
+                      <div class="delivery-payment-heading">2.PAYMENT OPTION</div>
+                      <div class="edit payment-method" data-method="">Edit</div>
+                    </div>
+                    <div class="payment-box">
+                        {{order.payment_method}}
+                    </div> <!--payment-box-->
+                    {% endif %}
+                </div> <!--payment-->
+
+            
+              <div class="checkout-order-summary">
+                <div class="delivery-payment-heading">3.ORDER SUMMARY</div> 
+                    <div class="payment-box">
+                      <!--only the items-->
+                  <div class="item-subtotal" style="margin-bottom:10px;margin-top:10px;"> 
+                    <div class="item-subtotal-text">Items(s) subtotal</div>
+                    <div class="item-subtotal-text">Rp {{order.get_cart_total|add_fullstop}}</div> 
+                  </div>
+                  <!--shipping cost-->
+                  <div class="item-subtotal" style="margin-bottom:10px;"> 
+                    <div class="item-subtotal-text">Shipping Cost</div>
+                    <div class="item-subtotal-text">Rp {{order.shipping_cost|add_fullstop}}</div> 
+                  </div>
+                  <!--tax-->
+                  <div class="item-subtotal"> 
+                    <div class="item-subtotal-text">VAT</div>
+                    <div class="item-subtotal-text">Rp {{order.calculate_vat|add_fullstop}}</div> 
+                  </div>
+                  
+                  <!--Including the taxes, additional fees, and discount -->
+                  <div class="item-subtotal subtotal" style="border-top:1px solid rgba(1,1,1,0.6);border-bottom:1px solid rgba(1,1,1,0.6);padding-top:20px;padding-bottom:20px;">
+                    <div class="subtotal-text">SUBTOTAL</div>
+                    <div class="subtotal-text">Rp {{order.calculate_subtotal|add_fullstop}}</div>  <!--haven't add the fees and discount available-->
+                  </div>
+      
+                  <!--the total that you are going to pay-->
+                  <div class="item-subtotal" style="border-bottom:1px solid rgba(1,1,1,0.6);padding-bottom:20px;">
+                    <div class="subtotal-text" style="font-weight:700;">ORDER TOTAL</div>
+                    <div class="subtotal-text" style="font-weight:700;">Rp {{order.calculate_subtotal|add_fullstop}}</div>  <!--haven't add the fees and discount available-->
+                  </div>
+
+                  <!--must have address and payment method-->
+                  <!--If form complete, toggle modal-->
+                  {% if newAddress_isValid == True and order.payment_method != "" and order.payment_method != None  %}
+                  <div style="display:flex;justify-content:center;align-items:center;width:100%;"><button class="btn register-the-address" data-bs-toggle="modal" data-bs-target="#exampleModal2" >PLACE ORDER</button></div>
+                  
+                    <!--Modal-->
+                    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel" style="font-weight:700">ORDER CONFIRMATION</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                DO YOU WISH TO PLACE ORDER?
+                              </div> <!--modal-body-->
+                              <div class="modal-footer" style="display:flex;justify-content:center;align-items:center;">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width:75px !important;background:white !important; color:black !important;">No</button>
+                                <a href="/checkout/done/{{order}}"><button type="button" class="btn btn-primary" id="confirm_order" data-status="Placed" style="width:75px !important;background:#121147 !important;">Yes</button></a>
+                              </div>
+
+                          </div> <!--modal-content-->
+                      </div> <!--modal-dialog-->
+                  </div> <!--modal-->
+                  
+                  {% else %}
+
+                    <!--If form incomplete, toggle popover-->
+                    <div style="display:flex;justify-content:center;align-items:center;width:100%;" disabled>
+                      <span tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Please Fill out all the form above"><button type="button" class="btn register-the-address">PLACE ORDER</button></span>
+                    </div>
+                  
+                  
+                  {% endif %}
+
+                    </div> <!--payment-box-->
+              </div>
+
+
+            </div> <!--checkout-page-1-->
+
+            <!--ORDER SUMMARY-->
+            <div class="checkout-page-2">
+                <div class="order-summary">
+                  <div class="sum-heading">ORDER SUMMARY | {{order.get_cart_items}} ITEM(S)</div>
+      
+                  <!--only the items-->
+                  <div class="item-subtotal" style="margin-bottom:10px;"> 
+                    <div class="item-subtotal-text">Items(s) subtotal</div>
+                    <div class="item-subtotal-text">Rp {{order.get_cart_total|add_fullstop}}</div> 
+                  </div>
+                  <!--shipping cost-->
+                  <div class="item-subtotal" style="margin-bottom:10px;"> 
+                    <div class="item-subtotal-text">Shipping Cost</div>
+                    <div class="item-subtotal-text">Rp {{order.shipping_cost|add_fullstop}}</div> 
+                  </div>
+                  <!--tax-->
+                  <div class="item-subtotal"> 
+                    <div class="item-subtotal-text">VAT</div>
+                    <div class="item-subtotal-text">Rp {{order.calculate_vat|add_fullstop}}</div> 
+                  </div>
+                  
+                  <!--Including the taxes, additional fees, and discount -->
+                  <div class="item-subtotal subtotal">
+                    <div class="subtotal-text">SUBTOTAL</div>
+                    <div class="subtotal-text">Rp {{order.calculate_subtotal|add_fullstop}}</div>  <!--haven't add the fees and discount available-->
+                  </div>
+      
+                  <!--the total that you are going to pay-->
+                  <div class="item-subtotal">
+                    <div class="subtotal-text" style="font-weight:700;">ORDER TOTAL</div>
+                    <div class="subtotal-text" style="font-weight:700;">Rp {{order.calculate_subtotal|add_fullstop}}</div>  <!--haven't add the fees and discount available-->
+                  </div>
+      
+                </div> <!--order-summary-->
+
+                <div class="order-summary" style="padding:20px;">
+                  <div class="sum-heading" style="margin-bottom:10px;">ORDER ITEM(S)</div>
+                  <div style='display:flex;justify-content:flex-start;flex-wrap:wrap;'>
+                    {% for item in items %}
+                      <div class="display-items">
+                        <div class="display-items-pict">
+                          {% comment %} <img class="d-block w-100 img_overview" src="{{item.product.img.url}}" alt="{{item.product.name}}"> {% endcomment %}
+                        </div>
+                        <div class="summary-quantity">x{{item.quantity}}</div>
+                      </div>
+                    {% endfor %}
+                  </div>
+      
+                </div> <!--order-summary-->
+
+              </div> <!--cart-page-2-->
+
+        </div> <!--cart-page-->
+    </div>
+    {% endblock %}
+</div>
+
+
+</body>
+
+
+  {% block scripts %}
+
+  <script>
+    let user = '{{user}}';
+  </script>
+
+  <!--Setting the CSRF Token for Django AJAX, so that you can do the promise and fetch calls-->
+  <script>
+    function getToken(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+    }
+    const csrftoken = getToken('csrftoken');
+  </script>
+    
+    <script type="text/javascript" src="{% static '/js/checkout.js' %}"></script>
+    <!--bootstrap 5-->
+    {% comment %} <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> {% endcomment %}
+
+  {% endblock scripts %}
+
+
+</html>
+

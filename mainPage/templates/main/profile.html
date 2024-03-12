@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+{% extends "main/base2.html" %}
+{% load static %}
+{% load custom_filters %}
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>{% block title %} Profile | TanpaTitik {% endblock %}</title>
+
+    {% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/profile/profile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/cart_wishlist/cart.css' %}">
+    {% endblock head %}
+
+
+</head>
+
+<body>
+
+<div id="content", name="content", class="main" style="width:100%">
+    {% block content %} <!--itnside this block content, the elements will be pasted to the parent elements which is base2.html-->
+    <div class="container profile-container">
+        <div class="cart-wishlist-heading" style="">My Account</div>
+
+        <!--Including the wardrobe-->
+        <div class="profile-box">  
+            <div class="profile-img-cont" style="background:red;">
+                <img src='{{wardrobe.img.url}}' style="width:100%;position:relative;object-fit:contain;">
+            </div> 
+
+            <!--Excluding the wardrobe-->
+            <div class="profile-content" style="">
+                <div class="profile-content-heading">
+                    <div class="profile-picture"><img></div>
+                    <div class="profile-heading-parent">
+                        <div class="profile-heading">
+                            <div class="profile-heading-1">
+                                <div class="profile-heading-name">{{customer.name}}</div>
+                                <div class="profile-heading-edit">Edit Profile</div>
+                            </div>
+                            <div class="profile-heading-2">{{customer.user.email}}</div>
+                        </div>
+                        <a href="{% url 'logout_page' %}" class="logout-link" ><div class="logout-btn"><div>Logout</div></div></a>
+                    </div>
+                </div> <!--profile-content-heading-->
+
+                <div class="profile-content-container">
+                    <div class="profile-content-content profile-content-detail">
+                        <div class="profile-body-heading">Personal Detail</div>
+                        <div class="profile-body-body">
+                            
+                            <div class="profile-body-body-text">
+                                <div>Username</div>
+                                <div>{{user}}</div>
+                            </div>
+
+                            <div class="profile-body-body-text">
+                                <div>Password</div>
+                                <div>*******</div> <!--{{user.password}}-->
+                            </div>
+
+                            <div class="profile-body-body-text">
+                                <div>First Name</div>
+                                <div>{{user.first_name}}</div> 
+                            </div>
+
+                            <div class="profile-body-body-text">
+                                <div>Last Name</div>
+                                <div>{{user.last_name}}</div> 
+                            </div>
+
+                            <div class="profile-body-body-text">
+                                <div>Email</div>
+                                <div>{{user.email}}</div> 
+                            </div>
+
+                            <div class="profile-body-body-text">
+                                <div>Shipping Address</div>
+                                <div>{{newAddress.address}}, {{newAddress.district}}, {{newAddress.city}}, {{newAddress.province}}, {{newAddress.zipcode}}</div>
+                            </div>
+
+                        </div> <!--profile-body-body-->
+                    </div> <!--profile-content-content profile-content-detail-->
+
+                    <div class="profile-content-content profile-content-history">
+                        <div class="profile-body-heading">Order History</div>
+
+                        <table class="profile-body-history">
+                            <tr class="profile-body-history-content">
+                                <th style="width:60px;">No</th>
+                                <th>Order No.</th>
+                                <th>Date Ordered</th>
+                                <th>Order Status</th>
+                                <th>Payment Status</th>
+                            </tr>
+
+                            {% for order in placed_order_by_customer %}
+                            <tr class="profile-body-history-content">
+                                <td><a href="/checkout/done/{{order.id}}">{{forloop.counter}}</a></td>
+                                <td><a href="/checkout/done/{{order.id}}">{{order}}</a></td>
+                                <td><a href="/checkout/done/{{order.id}}">{{order.date_ordered.date}}</a></td>
+                                <td><a href="/checkout/done/{{order.id}}">{{order.status}}</a></td>
+                                {% if order.payment_set.all.0.complete == False %}
+                                    <td><a href="/checkout/done/{{order.id}}">Not Paid</a></td>
+                                {% else %}
+                                    <td><a href="/checkout/done/{{order.id}}">Paid</a></td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+
+                        </table>
+
+
+                    </div> <!--profile-content-content profile-content-history-->
+                </div> <!--profile-content-container-->
+
+                <div class="logout-btn-media-query" style="width:100%;display:flex;justify-content:center;"><a class="logout-btn-media-query" href="{% url 'logout_page' %}"><div class="logout-btn"><div>Logout</div></div></a></div>
+
+            </div> <!--profile-content--> 
+            
+            {% comment %} {% for order in placed_order_by_customer %}
+                {{order.status}}
+            {% endfor %} {% endcomment %}
+
+        </div> <!--profile-box-->
+    </div> <!--profile-container--> 
+    {% endblock %}
+</div>
+
+
+</body>
+
+
+  {% block scripts %}
+  <script type="text/javascript" src="{% static '/js/cart.js' %}"></script>
+
+
+
+  {% endblock scripts %}
+
+
+</html>
+

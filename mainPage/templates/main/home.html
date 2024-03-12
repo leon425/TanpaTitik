@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+{% extends "main/base2.html" %}
+{% load static %}
+{% load custom_filters %}
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>{% block title %}TanpaTitik{% endblock %}</title>
+
+    {% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/homePage/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/homePage/collection.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/homePage/usp.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/homePage/faq.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/cart_wishlist/cart.css' %}">
+    {% endblock head %}
+
+
+</head>
+
+<body>
+
+<div id="content" ,name="content", class="main" style="width:100%">
+    {% block content %} <!--inside this block content, the elements will be pasted to the parent elements which is base2.html-->
+
+    <div class="container-fluid" style="background-color:#F3F9FB;">
+    <div class="container-fluid display">
+        <div class="display_title">
+        
+          <div class="headline" style="line-height:1.2">
+            Embrace The Past, Adorn The Future
+          </div>
+        
+          <div class="subheadline" style="">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+          </div>
+
+          <div class="call_to_action" style="">
+            <button class="btn btn-primary">Explore</button> <!--style="background:#000080"-->
+            <div>100 people like you have purchased this product!</div>
+          </div>
+      
+        </div> <!--display_title-->
+
+        <div class="display_photo">
+
+          <div id="carouselExampleIndicators" class="carousel slide carousels" data-bs-ride="carousel" style="">
+            <div class="carousel-indicators"> <!--Loop this as well-->
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+
+              {% for product in products|slice:"1:" %}
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{forloop.counter}}" aria-label="Slide {{forloop.counter|add:"1"}}"></button>
+              {% endfor %}
+
+            </div>
+
+             <div class="carousel-inner parent_of_circle" > <!--This little piece of shit deviate from its container, so I had to put the height to 100%-->
+              <div class="circle" style="background-color:{{firstProduct.color_circle}}">
+                <div class="carousel-item active" style="">
+                  <div class="img_div"> <img class="img_overview" src="{{firstProduct.img.url}}" alt="{{firstProduct.color_circle}}"></div>
+                </div>
+                {% for product in products|slice:"1:" %}
+                  <div class="carousel-item">
+                    <div class="container img_div"> <img class="img_overview" src="{{product.img.url}}" alt="{{product.color_circle}}"></div>
+                  </div>
+                
+                {% endfor %} 
+              </div>
+            </div> <!--carousel-inner-->
+
+            <button class="carousel-control-prev button_carousel" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" style="left:0.5vw;bottom:20px;">
+              <span><ion-icon name="chevron-back-outline" class="carousel_button" ></ion-icon></span>
+            </button>
+            <button class="carousel-control-next button_carousel" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" style="right:0.5vw;bottom:20px;">
+              <span><ion-icon name="chevron-forward-outline" class="carousel_button"></ion-icon></span>
+            </button>
+
+          
+        </div> <!--carousel slide-->
+            
+        </div> <!--display_photo-->
+      
+        <div class="display_status">
+          <div>Special Price</div>
+          <div>New Arrival</div>
+          <div>Trending</div>
+        </div>
+
+    </div> <!--display-->
+  </div> <!--container-fluid-->
+
+    <div class="container collection" id="collection">
+
+        <div class="home-heading">
+          <div class="home-heading-text">Our Products</div>
+          <div class="home-heading-shape"></div>
+        </div>
+
+      <div class="col-products">
+        <div> <!--Product Container-->
+          {% if searched != False and searched != None and searched != "" %}
+            <div class="searched-product-cont">
+              <div class="searched-product-heading">Showing Result For : <div>{{searched}}</div></div>
+          
+              <form method="POST" action="{% url 'home' %}#collection">
+                {% csrf_token %}
+                <button class="item-close searched-close" name="remove_search_button" value="muah" style="background:transparent;border:none;"><ion-icon name="close-outline" style="font-size:26px;"></ion-icon></button>
+              </form>
+            </div>
+          {% endif %}
+          {% for product in products %}
+          <a href="/product/{{product.id}}"> <!--<a href="/product/{{product.id}}">-->
+          <div class="product" >
+            <div class="product-img-container">
+              <img class="img_product" src="{{product.img.url}}" alt="{{product.color_circle}}">
+
+              {% if user.is_authenticated %}
+                {% if product.is_wishlist|length >= 1 %}
+                  {% for wishlist in product.is_wishlist %}
+                    {% if wishlist.customer.user == user %}
+                    <div class="heart is-active update-cart" data-product="{{product.id}}" data-action="remove" onclick="event.preventDefault()"></div>
+                    {% else %}
+                    <div id="heart{{product.id}}" class="heart update-cart" data-product="{{product.id}}" data-action="add" onclick="event.preventDefault()"></div>
+                    {% endif %}
+                  {% endfor %}
+                {% else %}
+                <div id="heart{{product.id}}" class="heart update-cart" data-product="{{product.id}}" data-action="add" onclick="event.preventDefault()"></div>
+                {% endif %}
+                {% else %}
+                <!-- Button trigger modal -->
+                <div class="heart disabled" style="transition:none;" onclick="event.preventDefault()" data-bs-toggle="modal" data-bs-target="#exampleModalyes"></div>
+
+
+                
+              {% endif%}
+
+
+
+
+              {% if product.stock == 0 %}
+              <div class="out-of-stock-div"><div>OUT OF STOCK</div></div>
+              {% endif %}
+            </div>
+
+            <div class="product-gender-size">
+              <div class="product-gender">{{product.gender}}</div>
+              <div class="product-size">{{product.size}}</div>
+            </div>
+
+            <div class="product-color-container">
+                <div class="product-color" style="background-color:{{product.color_hex}}">
+                <!--When hover, the name of the color is displayed => {{color.name}}--> <!--The product must be displayed only 4-->
+                </div>
+            </div>
+            
+            <div class="product-name">{{product.name}}</div>
+
+            {% if product.offer == False %} <!--If there isn't any discount-->
+              <div class="product-status">
+                {% if product.status != None %}
+                  {{product.status}}
+                {% endif %}
+              </div>
+              <div class="product-price">Rp {{product.price|add_fullstop}}</div>
+
+            {% else %}
+              <div class="product-price-past">Rp {{product.price|add_fullstop}}</div>
+              <div class="product-price price-final" style="color:#121147">Rp {{product.products_offer.final_price|add_fullstop}}</div>
+              <!--Change the datetime format (Ugly)-->
+              <div class="offer-text">Limited Offer from {{product.products_offer.date_start}} - {{product.products_offer.date_end}}</div>
+            {% endif %}
+
+            <div class="product-review" data-review="{{product.set_final_star}}">
+              <div id="{{product.id}}_stars" class="stars" data-product-id="{{product.id}}">
+
+                <div id="{{product.id}}_1">
+                  <ion-icon name="star-sharp" class="star"></ion-icon>                 
+                </div>
+                <div id="{{product.id}}_2">
+                  <ion-icon name="star-sharp" class="star"></ion-icon>            
+                </div>
+                <div id="{{product.id}}_3">
+                  <ion-icon name="star-sharp" class="star"></ion-icon>                 
+                </div>
+                <div id="{{product.id}}_4">
+                  <ion-icon name="star-sharp" class="star"></ion-icon>
+                </div>
+                <div id="{{product.id}}_5">
+                  <ion-icon name="star-sharp" class="star"></ion-icon>             
+                </div>
+
+              </div>
+              <div class="review-amount">({{product.set_final_star_len}})</div>  
+            </div>
+            
+            
+            <!--There are 2 scenarios. Build the if else statement now relating to the product database. First scenario: offer = true, second scenario: offer = false-->
+
+          </div><!--product-->
+          </a>
+          {% endfor %}
+        </div> <!--Product Container-->
+      </div> <!--col-products-->
+    
+    </div> <!--Collection-->
+    
+    <!--Between collection & USP, there are 100px space. So, the heading (usp) and 'load more' button (collection) doesn't have any top margin nor padding-->
+
+    <div class="container-fluid usp">
+      <div class="home-heading" style="margin-bottom:50px;margin-top:66px;">
+        <div class="home-heading-text">What We Offer</div>
+        <div class="home-heading-shape"></div>
+      </div>
+
+      <div class="usp-card-container-1">
+
+          <div class="usp-card" style="height:373px;">
+            <div class="usp-icon-title-container">
+              <div class="usp-icon"><ion-icon name="shirt-outline" style="font-size:31px;"></ion-icon></div>
+              <div class="usp-title">Traditional</div>   
+            </div>
+            <div class="usp-text">esuies eget, tempor sit ultricies mi vitaemet esbulum dimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent </div>
+          </div>
+
+          <div class="usp-card">
+            <div class="usp-icon-title-container">
+              <div class="usp-icon"><ion-icon name="shirt-outline" style="font-size:31px;"></ion-icon></div>
+              <div class="usp-title">Traditional</div>   
+            </div>
+            <div class="usp-text">esuies eget, tempor sit ultricies mi vitaemet esbulum dimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent </div>
+          </div>
+
+          <div class="usp-card" style="height:313px;"><div class="usp-icon-title-container">
+            <div class="usp-icon"><ion-icon name="shirt-outline" style="font-size:31px;"></ion-icon></div>
+            <div class="usp-title">Traditional</div>   
+          </div>
+          <div class="usp-text">esuies eget, tempor sit ultricies mi vitaemet esbulum dimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent </div></div>
+      
+        </div>
+    </div> <!--container usp-->
+
+    <div class="container faq">
+      <div class="home-heading" style="margin-bottom:20px;margin-top:66px;">
+        <div class="home-heading-text">FAQs</div>
+        <div class="home-heading-shape"></div>
+      </div>
+
+      <div class="faq-question-container">
+        {% for faq in faqs %}
+          <div class="faq-question">
+            
+            <div class="faq-head" type="button" data-bs-toggle="collapse" data-bs-target="#faq-no-{{faq.id}}" aria-expanded="false" aria-controls="collapseExample">
+              <div class="faq-head-title">{{faq.subject}}</div>
+              <div class="faq-head-button"><ion-icon name="chevron-down-outline"></ion-icon></div>
+            </div>
+            
+            <div class="collapse faq-answer" id="faq-no-{{faq.id}}">
+              <div>{{faq.text}}</div>
+            </div>
+          </div> <!--faq-question-->
+        {% endfor %}
+      </div>
+    
+
+    </div> <!--faq-container-->
+
+    <!--MODAL FOR NOT LOGGED IN USER -->
+    <div class="modal fade" id="exampleModalyes" tabindex="-1" aria-labelledby="exampleModalLabelyes" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabelyes" style="font-weight:700">Please Log In To Start Shopping</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-footer" style="display:flex;justify-content:center;align-items:center;">
+              <a href="{% url 'login_page' %}"><button type="button" class="btn btn-primary" style="width:110px !important;background:#121147 !important;">LOG IN</button></a>
+              </div>
+
+          </div> <!--modal-content-->
+      </div> <!--modal-dialog-->
+  </div> <!--modal-->
+
+
+    {% endblock %}
+</div>
+
+
+</body>
+
+  {% block scripts %}
+  {% comment %} <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script> {% endcomment %}
+  <script type="text/javascript" src="{% static '/js/home.js' %}"></script>
+
+
+  <!---->
+  <script>
+    let user = '{{request.user}}'
+    
+  </script>
+
+  <!--Setting the CSRF Token for Django AJAX, so that you can do the promise and fetch calls-->
+  <script>
+    function getToken(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+  }
+  const csrftoken = getToken('csrftoken');
+  </script>
+
+  <!--PRODUCT REVIEW-->
+  <script>
+    star_review = {};
+    idArray = [];
+    starArray = [];
+
+    // Get the set_final_star from all products
+    let stars = document.querySelectorAll('.product-review');
+    stars.forEach(star => {
+      let product_stars = star.dataset; //javascript object: DOMStringMap {review:4.0}
+      let product_star = Object.values(product_stars); //get the value of the object and transform it into an array
+      product_star = parseInt(Math.floor(product_star[0])); // The star of each product sorted
+      starArray.push(product_star);
+      console.log(product_star);
+    })
+
+    // Get the product.id from all products
+    let ids = document.querySelectorAll('.stars');
+    ids.forEach(id => {
+      let product_ids = id.dataset;
+      let product_id = Object.values(product_ids);
+      product_id = parseInt(product_id[0]); // The id of each product sorted
+      idArray.push(product_id);
+      console.log(product_id);
+    })
+
+    // Combine 2 arrays (idArray & starArray into objects). Don't really understand the code.
+    {% comment %} let result = starArray.reduce(
+      (result, field, index) => ({ ...result, [idArray[index]]: field }),
+      {}
+      ) {% endcomment %}
+
+    {% comment %} console.log(result); {% endcomment %}
+
+    for (let id=0; id<idArray.length; id++) {
+      let selected = document.getElementById(idArray[id]+"_stars"); //the selected stars
+      console.log(selected);
+      console.log(starArray[id]);
+      // Inside starArray
+      for (let check=1; check<=starArray[id]; check++) {
+        console.log(idArray[id]+"_"+check);
+        let checked_star = document.getElementById(idArray[id]+"_"+check)
+        checked_star.firstElementChild.style.color = '#EBBE00'
+      }
+    } 
+  </script>
+
+  {% endblock scripts %}
+  
+
+</html>
+

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+{% extends "main/base2.html" %}
+{% load static %}
+{% load custom_filters %}
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>{% block title %} Cart | TanpaTitik{% endblock %}</title>
+
+    {% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/general/base2.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/cart_wishlist/cart.css' %}">
+    {% endblock head %}
+
+
+</head>
+
+<body>
+
+<div id="content" ,name="content", class="main" style="width:100%">
+    {% block content %} <!--inside this block content, the elements will be pasted to the parent elements which is base2.html-->
+    <div class="container cart-wishlist-content">
+    <div class="cart-wishlist-heading">Shopping Cart</div>  
+    <div class="cart-page">
+        <div class="cart-page-1" style="">
+          {% if user.is_authenticated %}
+            {% if items.count == 0 %}
+            <div class="cart-empty">
+              <div class="cart-wishlist-heading" style="font-size:22px;margin-bottom:10px;">Your cart is currently empty</div>
+              <a href="{% url 'home' %}#collection"><div class="checkout" style="width:200px;"><div class="but-text" style="font-size:15px;">SHOP NOW</div></div></a>
+            </div>
+            {% else %}
+            {% for item in items %}
+            <div class="cart-item">
+              <div class="item-img"><img class="img_product img-cart-wishlist" src="{{item.product.img.url}}" alt="{{item.color_circle}}"></div>  
+              <div class="item-info">
+
+                <div class="item-name-close">
+                  <div class="item-name">{{item.product.name}}</div>
+                  <div class="item-close" data-bs-toggle="modal" data-bs-target="#exampleModal" ><ion-icon name="close-outline" style="font-size:22px;"></ion-icon></div>
+                </div>
+
+              <!-- Modal  -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel" style="font-weight:700">REMOVE ITEM</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="font-size:14px;">
+                          ARE YOU SURE YOU WANT TO REMOVE THIS ITEM FROM THE CART?
+                        </div> <!--modal-body-->
+                        <div class="modal-footer" style="display:flex;justify-content:center;align-items:center;">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width:75px !important;background:white !important; color:black !important;">No</button>
+                          <button type="button" class="btn btn-primary removeItem" data-productid="{{item.product.id}}" data-action="cart_remove" style="width:75px !important;background:#121147 !important;">Yes</button>
+                        </div>
+
+                    </div> <!--modal-content-->
+                </div> <!--modal-dialog-->
+            </div> <!--modal-->
+
+
+
+                <div class="color-size">COLOR : {{item.product.color}}</div> <!--when hover, show the color-->
+                <div class="color-size" style="margin-bottom:13px;">SIZE : {{item.product.gender}} {{item.product.size}}</div>
+                {% if item.product.offer == False %}
+                  <div class="item-price">Rp {{item.product.price|add_fullstop}}</div> <!--if offer == False-->
+                {% else %}
+                  <div class="item-price-old">Rp {{item.product.price|add_fullstop}}</div>
+                  <div class="item-price-new">Rp {{item.product.products_offer.final_price|add_fullstop}}</div>
+                {% endif %}
+                <div class="quantity-heading">QUANTITY</div>
+                <div class="quantity-cont"> 
+
+                  <div class="product-quantity-button"> 
+                    {% if item.quantity <= 1 %}
+                      <div class="quantity-button subs" data-item="{{item.id}}" data-sideaction="remove"><div class="but-let">-</div></div>
+                    {% else %}
+                      <div class="quantity-button subs buttonLetter" data-item="{{item.id}}" data-sideaction="remove"><div class="but-let" >-</div></div>
+                    {% endif %}
+
+                      <div class="number"><div class="letter" style="font-size:12px;">{{item.quantity}}</div></div>
+
+                    {% if item.quantity < item.product.stock %}
+                      <div class="quantity-button add buttonLetter" data-item="{{item.id}}" data-sideaction="add"><div class="but-let">+</div></div>
+                    {% else %}
+                      <div class="quantity-button add buttonLetterMaxStock" data-item="{{item.id}}" data-sideaction="add"><div class="but-let">+</div></div>
+                    {% endif %}
+                  </div> <!--product-quantity-button-->
+                  
+                  <div class="subtotal">SUBTOTAL: <div style="color:#121147;font-family:'Inter';display:inline-block;">Rp {{item.get_item_total|add_fullstop}}</div></div>
+                  
+                </div> <!--quantity-cont-->
+                <div class="maxStock" id="{{item.id}}_maxStock">Maximum Stock</div> <!--Design it further-->
+    
+
+              </div> <!--item-info-->
+            </div> <!--cart-item-->
+            {% endfor %}
+            {% endif %}
+          
+          <!--If user is not logged in-->
+          {% else %}
+          <div class="cart-empty">
+            <div class="cart-wishlist-heading" style="font-size:22px;margin-bottom:10px;">Please Login to Begin Shopping</div>
+            <a href="{% url 'login_page' %}#collection"><div class="checkout" style="width:200px;"><div class="but-text" style="font-size:15px;">LOG IN</div></div></a>
+          </div>
+          {% endif %}
+
+        </div> <!--cart-page-1-->
+        <div class="cart-page-2">
+          <div class="order-summary">
+            <div class="sum-heading">ORDER SUMMARY | {{order.get_cart_items}} ITEM(S)</div>
+
+            <!--only the items-->
+            <div class="item-subtotal"> 
+              <div class="item-subtotal-text">Items(s) subtotal</div>
+              <div class="item-subtotal-text">Rp {{order.get_cart_total|add_fullstop}}</div> 
+            </div>
+            
+            <!--Including the taxes, additional fees, and discount -->
+            <div class="item-subtotal subtotal">
+              <div class="subtotal-text">SUBTOTAL</div>
+              <div class="subtotal-text">Rp {{order.get_cart_total|add_fullstop}}</div>  <!--haven't add the fees and discount available-->
+            </div>
+
+            <!--the total that you are going to pay-->
+            <div class="item-subtotal">
+              <div class="subtotal-text" style="font-weight:700;">ORDER TOTAL</div>
+              <div class="subtotal-text" style="font-weight:700;">Rp {{order.get_cart_total|add_fullstop}}</div>  <!--haven't add the fees and discount available-->
+            </div>
+
+          </div> <!--order-summary-->
+
+          <div class="coupon">
+            <div class="coupon-pict"><img style="bottom:4.5px;" class="coupon-img" src="{{coupon_icon.img.url}}" alt="coupon icon"></div>
+            <div class="item-subtotal-text" style="width:80%;">Coupon</div>
+            <div class="coupon-pict"><ion-icon style="opacity:80%" class="coupon-img" name="chevron-forward-outline"></ion-icon></div>
+          </div>
+
+          <div class="terms">
+            <div class="terms-heading">
+              <div class="terms-heading-text">TERMS OF USE</div>
+              <input type="checkbox" id="scales" name="scales" class="terms-heading-checkbox" />
+            </div>
+            <div class="terms-desc">By clicking the button, you agree to our term and conditions</div>
+          </div> <!--terms-->
+
+          <a href="{% url 'checkout' %}"> <div class="checkout"><div class="but-text">CHECKOUT</div></div></a>
+          <a href="{% url 'home' %}#collection"><div class="checkout" style="border:1px solid black;background:white;"><div class="but-text" style="color:black;">CONTINUE SHOPPING</div></div></a>
+
+
+        </div> <!--cart-page-2-->
+      </div> <!--cart-page-->
+    </div><!--cart-wishlist-content-->
+    {% endblock %}
+</div>
+
+
+</body>
+
+
+  {% block scripts %}
+  <script type="text/javascript" src="{% static '/js/cart_wishlist.js' %}"></script>
+  <script>
+    let user = '{{user}}';
+  </script>
+
+  <!--Setting the CSRF Token for Django AJAX, so that you can do the promise and fetch calls-->
+  <script>
+    function getToken(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
+      }
+      return cookieValue;
+    }
+    const csrftoken = getToken('csrftoken');
+  </script>
+
+  {% endblock scripts %}
+
+
+</html>
+

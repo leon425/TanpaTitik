@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+{% extends "main/base2.html" %}
+{% load static %}
+{% load custom_filters %}
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>{% block title %} Receipt | TanpaTitik{% endblock %}</title>
+
+    {% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/cart_wishlist/cart.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/checkout/checkout.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/checkout/checkout_done.css' %}">
+    {% endblock head %}
+
+
+</head>
+
+<body>
+
+<div id="content", name="content", class="main" style="width:100%">
+    {% block content %} <!--itnside this block content, the elements will be pasted to the parent elements which is base2.html-->
+    <div class="container cart-wishlist-content" style="border:2px solid black;display:flex;align-items:center;flex-direction:column;">
+        <div class="done-header">
+            <div class="done-title">THANK YOU</div>
+            <div class="done-subtitle">Thank you for shopping, we have received your order.</div>
+            <div class="checkout" style="width:250px"><div class="but-text">CONTINUE SHOPPING</div></div>
+        </div> <!--done-header-->
+
+        <!--Order Receipt-->
+        <div class="order-receipt">
+            <div class="order-number-heading">ORDER NUMBER</div>
+            <div class="order-number-number">{{order_checkout_done.id}}</div>
+
+            <div class="order-add-info">Estimated delivery time: </div>
+            <div class="order-add-info" style="margin-bottom:10px;">(Find your delivery details in the email notification after order placement)</div>
+
+            <div class="order-summary-content">
+                <div class="order-summary-heading" style="margin-bottom:20px;padding:10px 20px 10px 20px">
+                    <div class="order-number-heading" style="">ORDER SUMMARY</div>
+                    <div class="cancellation"><div style="color:rgba(1,1,1,0.7);font-size:13px;">Cancel Order</div><ion-icon style="color:rgba(1,1,1,0.7)" name="information-circle-outline"></ion-icon></div>
+                </div>
+
+                <div class="order-summary-button">
+                    <div class="checkout" style="width:200px;border:1px solid black;background:white;margin-right:20px;"><div class="but-text" style="color:black;font-weight:600;font-size:12px;">PRINT ORDER SUMMARY</div></div>
+                    <div class="checkout" style="width:200px;border:1px solid black;background:white;"><div class="but-text" style="color:black;font-weight:600;font-size:14px;">ORDER HISTORY</div></div>
+                </div>
+
+                <!--still static => add coupon-->
+                <div class="order-summary-payment">
+                    <div class="order-summary-payment-container">
+                        <div class="order-summary-payment-name">Item(s) Subtotal</div>
+                        <div class="order-summary-payment-name payment-value">Rp {{order_checkout_done.get_cart_total|add_fullstop}}</div>
+                    </div>
+                    <div class="order-summary-payment-container">
+                        <div class="order-summary-payment-name">Shipping Cost</div>
+                        <div class="order-summary-payment-name payment-value">Rp {{order_checkout_done.shipping_cost|add_fullstop}}</div>
+                    </div>
+                </div>
+
+                <div class="order-summary-payment">
+                    <div class="order-summary-payment-container">
+                        <div class="order-summary-payment-name payment-bold">SUBTOTAL</div>
+                        <div class="order-summary-payment-name payment-value payment-bold">Rp {{order_checkout_done.calculate_subtotal|add_fullstop}}</div>
+                    </div>
+                </div>
+
+                <div class="order-summary-payment">
+                    <div class="order-summary-payment-container">
+                        <div class="order-summary-payment-name payment-bold">ORDER TOTAL</div>
+                        <div class="order-summary-payment-name payment-value payment-bold">Rp {{order_checkout_done.calculate_subtotal|add_fullstop}}</div>
+                    </div>
+                </div>
+                
+
+            </div> <!--order-summary-content-->
+
+            <div class="order-summary-content">
+            {% if order_checkout_done.payment_method == 'Cash On Delivery' %}
+                <div class="order-number-heading">CASH ON DELIVERY</div>
+                <div class="order-add-info">Pelase pay the product with the courier on location</div>
+            {% elif order_checkout_done.payment_method == 'QRIS' %}
+                <div class="order-number-heading">QRIS PAYMENT</div>
+                <div class="order-add-info">Please use the QR Code to make the payment via QRIS before the expiry time. Your order will be cancelled if you do not complete the payment within the expiry period. Please upload the payment evidence below.</div>
+                <!--form-->
+
+                <form method="POST" enctype="multipart/form-data" action="">
+                    {% csrf_token %}
+                    {{payment_evidence_form.as_p}}
+                    <button class="" type="submit" value="Submit">Upload</button>
+                </form>
+
+                <div class="order-add-info">After your payment has been sucessfully completed, our system will take approximately 2 hours for verification and confirmation status of your payment</div>
+                <div class="order-add-info">Expires on </div>
+                <!--payment instruction??-->
+            {% elif order_checkout_done.payment_method == 'Bank Transfer' %}
+
+            {% else %}
+
+            {% endif %}
+
+            </div> <!--order-summary-content for payment-->
+
+            <div class="order-summary-content">
+                <div class="order-number-heading">SHIPPING ADDRESS</div>
+                <div class="order-add-info" style="text-transform:uppercase;">{{order_checkout_done.customer}}</div>
+                <div class="order-add-info">{{newAddress.address}}</div>
+                <div class="order-add-info">{{newAddress.district}}, {{newAddress.city}}, {{newAddress.province}}, {{newAddress.zipcode}}</div>
+            </div> <!--order-summary-content for shipping address-->
+
+            <div class="order-summary-content">
+                <div class="order-number-heading">DELIVERY DATE</div>
+                <div class="order-add-info">Shipping Cost: <div style="font-weight:700;font-family:'Inter';display:inline-block;">Rp {{order_checkout_done.shipping_cost|add_fullstop}}</div></div>
+                <div class="order-add-info">Estimated delivery time: </div>
+                <div class="order-add-info">(Find your delivery details in the email notification after order placement)</div>
+                <div class="order-add-info">After the order being shipped, you can get expected delivery date and time</div>
+            </div> 
+
+        </div> <!--order-receipt-->
+    
+    
+    </div> <!--cart-wishlist-content--> 
+    {% endblock %}
+</div>
+
+
+</body>
+
+
+  {% block scripts %}
+  <script type="text/javascript" src="{% static '/js/cart.js' %}"></script>
+
+  {% endblock scripts %}
+
+
+</html>
+

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+{% extends "main/base2.html" %}
+{% load static %}
+{% load custom_filters %}
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>{% block title %} About Us | TanpaTitik{% endblock %}</title>
+
+    {% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/about/about.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/cart_wishlist/cart.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/homePage/home.css' %}">
+    {% endblock head %}
+
+
+</head>
+
+<body>
+
+<div id="content" ,name="content", class="main" >
+    {% block content %} <!--inside this block content, the elements will be pasted to the parent elements which is base2.html-->
+
+    <div class="container-fluid cart-wishlist-content" style="margin-top:100px;">
+
+      <div class="about-shape">
+        <div class="about-shape-1"></div>
+        <div class="about-shape-2"></div>
+        <div class="about-logo-div"><img class="about-logo" src="{{logo2.img.url}}"></div>
+      </div>
+      
+
+    </div> <!--cart-wishlist-content--> 
+    
+    <div class="container-fluid" style="background-color:#F3F9FB;padding:20px 0px 40px 0px; margin-top:20px;">
+      <div class="container usp-whatis-vision-mission" >
+        <div class="usp-whatis">
+          
+          <div class="usp-phrase" style="display:flex;flex-direction:column;justify-content:center;">
+            <div class="home-heading" style="margin-bottom:50px;margin-top:30px;">
+              <div class="home-heading-text" style="font-size:30px;">What Is TanpaTitik?</div>
+              <div class="home-heading-shape"></div>
+            </div>
+            <div class="usp-phrase-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fermentum tortor quis diam rutrum maximus. Mauris elit nunc, pellentesque in aliquet quis, viverra in dolor. Aenean dui metus, ultrices in dui eu, finibus efficitur libero. In luctus suscipit </div>
+          </div> <!--usp-phrase-->
+
+          <div class="usp-frame"></div>
+        </div> <!--usp-whatis-->
+
+        <div class="usp-vision-mission">
+          <div class="usp-frame"></div>
+          <div class="usp-phrase">
+            <div class="home-heading" style="margin-bottom:50px;margin-top:30px;">
+              <div class="home-heading-text" style="font-size:30px;">Vision</div>
+              <div class="home-heading-shape"></div>
+            </div>
+            <div class="usp-phrase-text">Developing an environmentally friendly fashion culture, with high artistic value, and high quality that can be used daily.</div>
+
+            <div class="home-heading" style="margin-bottom:50px;margin-top:66px;">
+              <div class="home-heading-text" style="font-size:30px;">Mission</div>
+              <div class="home-heading-shape"></div>
+            </div>
+            <div class="usp-phrase-text">
+              <ul>
+                <li>Recycling and repurposing textile waste into new products.</li>
+                <li>Utilizing second-hand clothing as a means to channel creativity and produce new products with aesthetic value.</li>
+                <li>Transforming and ensuring that used materials are turned into wearable and high-quality products for long-term use.</li>
+              </ul>
+            </div>
+          </div> <!--usp-phrase-->
+
+          
+        </div><!--usp-whatis-->
+
+      </div> <!--container usp-whatis-vision-mission-->
+
+      <div class="usp-whatis-vision-mission-resp">
+        <div class="home-heading" style="margin-bottom:50px;margin-top:30px;">
+          <div class="home-heading-text" style="font-size:30px;">What Is TanpaTitik?</div>
+          <div class="home-heading-shape"></div>
+        </div>
+
+        <div class="usp-frame-cont-resp">
+          <div class="usp-frame-resp"></div>
+          <div class="usp-frame-resp"></div>
+        </div>
+
+        <div class="usp-phrase-text usp-phrase-text-resp">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fermentum tortor quis diam rutrum maximus. Mauris elit nunc, pellentesque in aliquet quis, viverra in dolor. Aenean dui metus, ultrices in dui eu, finibus efficitur libero. In luctus suscipit </div>
+
+        <div class="home-heading" style="margin-bottom:50px;margin-top:30px;">
+          <div class="home-heading-text" style="font-size:30px;">Vision</div>
+          <div class="home-heading-shape"></div>
+        </div>
+
+        <div class="usp-phrase-text usp-phrase-text-resp" style="">Developing an environmentally friendly fashion culture, with high artistic value, and high quality that can be used daily. </div>
+
+        <div class="home-heading" style="margin-bottom:50px;margin-top:30px;">
+          <div class="home-heading-text" style="font-size:30px;">Mission</div>
+          <div class="home-heading-shape"></div>
+        </div>
+
+        <div class="usp-phrase-text usp-phrase-text-resp">
+          <ul>
+            <li>Recycling and repurposing textile waste into new products.</li>
+            <li>Utilizing second-hand clothing as a means to channel creativity and produce new products with aesthetic value.</li>
+            <li>Transforming and ensuring that used materials are turned into wearable and high-quality products for long-term use.</li>
+          </ul>
+        </div>
+
+
+
+      </div> <!--usp-whatis-vision-mission-resp-->
+
+    </div>
+
+
+    
+
+    <div class="container about-company">
+        
+        
+       
+        {% comment %} <div class="about-identity-cont">
+          
+        {% for identity in identities %} 
+          <div class="about-identity">
+            <div class="item-img" style="width:100%;height:0;padding-bottom:100%; border:1px solid rgba(1,1,1,0.5);"><img style="width:100%;object-fit:contain;" src="{{identity.img.url}}"></div>
+            <div class="about-identity-heading" >{{identity.heading}}</div>
+            <div class="about-intro" style="font-size:14px;">{{identity.text}}</div>
+          </div>
+        {% endfor %}
+
+        </div> <!--about-identity--> {% endcomment %}
+
+        
+        <div class="about-video"></div>
+ 
+    </div> <!--about-company-->
+
+    <div class="container-fluid" style="background-color:#F3F9FB;padding-top:20px;">
+    <div class="container"></div>
+      <div class="home-heading" style="margin-bottom:50px;margin-top:30px;">
+        <div class="home-heading-text" style="">Meet Our Team</div>
+        <div class="home-heading-shape"></div>
+      </div>
+
+    <!--CEO-->
+    <div style="display:flex;justify-content:center;"><div class="meetTheTeam-shape"><div>CEO (Chief Executive Officer)</div></div></div>
+    <div class="meetTheTeam-cont">
+      {% for person in ceo %}
+      <div class="meetTheTeam-card">
+        <div class="meetTheTeam-label">
+          {% if person.job_desc != None  %}
+            <div>{{person.name}}</div>
+            <div>{{person.job_desc}}</div>
+          {% else %}
+            <div>{{person.name}}</div>
+          {% endif %}
+        </div>
+      </div> <!--meetTheTeam-card-->
+      {% endfor %}
+    </div>
+
+    <!--PRODUCTION IDIVISION-->
+    <div style="display:flex;justify-content:center;"><div class="meetTheTeam-shape"><div>PRODUCTION DIVISION</div></div></div>
+    <div class="meetTheTeam-cont">
+      {% for person in production_division %}
+      <div class="meetTheTeam-card">
+        <div class="meetTheTeam-label">
+          {% if person.job_desc != None  %}
+            <div>{{person.name}}</div>
+            <div>{{person.job_desc}}</div>
+          {% else %}
+            <div>{{person.name}}</div>
+          {% endif %}
+        </div>
+      </div> <!--meetTheTeam-card-->
+      {% endfor %}
+    </div>
+
+    <!--MARKETING IDIVISION-->
+    <div style="display:flex;justify-content:center;"><div class="meetTheTeam-shape"><div>MARKETING DIVISION</div></div></div>
+    <div class="meetTheTeam-cont">
+      {% for person in marketing_division %}
+      <div class="meetTheTeam-card">
+        <div class="meetTheTeam-label">
+          {% if person.job_desc != None  %}
+            <div>{{person.name}}</div>
+            <div>{{person.job_desc}}</div>
+          {% else %}
+            <div>{{person.name}}</div>
+          {% endif %}
+        </div>
+      </div> <!--meetTheTeam-card-->
+      {% endfor %}
+    </div>
+
+    <!--DESIGN IDIVISION-->
+    <div style="display:flex;justify-content:center;"><div class="meetTheTeam-shape"><div>DESIGN DIVISION</div></div></div>
+    <div class="meetTheTeam-cont">
+      {% for person in design_division %}
+      <div class="meetTheTeam-card">
+        <div class="meetTheTeam-label">
+          {% if person.job_desc != None  %}
+            <div>{{person.name}}</div>
+            <div>{{person.job_desc}}</div>
+          {% else %}
+            <div>{{person.name}}</div>
+          {% endif %}
+        </div>
+      </div> <!--meetTheTeam-card-->
+      {% endfor %}
+    </div>
+
+    <!--FINANCE IDIVISION-->
+    <div style="display:flex;justify-content:center;"><div class="meetTheTeam-shape"><div>FINANCE DIVISION</div></div></div>
+    <div class="meetTheTeam-cont">
+      {% for person in finance_division %}
+      <div class="meetTheTeam-card">
+        <div class="meetTheTeam-label">
+          {% if person.job_desc != None  %}
+            <div>{{person.name}}</div>
+            <div>{{person.job_desc}}</div>
+          {% else %}
+            <div>{{person.name}}</div>
+          {% endif %}
+        </div>
+      </div> <!--meetTheTeam-card-->
+      {% endfor %}
+    </div>
+
+
+
+  </div> <!--container-->
+    </div> <!--container-fluid-->
+    
+    
+
+    {% endblock %}
+</div>
+
+<!--Bootstrap installation-->
+{% comment %} <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> {% endcomment %}
+
+</body>
+</html>
+
