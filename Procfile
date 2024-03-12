@@ -1,3 +1,3 @@
-export DJANGO_SETTINGS_MODULE=tanpatitik.settings
+export DJANGO_SETTINGS_MODULE=TanpaTitik.settings
 
-web gunicorn tanpatitik.wsgi:application --log-file -
+web gunicorn TanpaTitik.wsgi:application --log-file -
