@@ -15,14 +15,15 @@ li {
 
 .display {
     background-color:#F3F9FB;
-    height:auto;
-    min-height:720px;
+    /* height:auto;
+    min-height:720px; */
+    height:720px;
     width:100%;
     max-width:1600px;
     padding:0px;
     display:flex;
     flex-direction:row;
-    border-bottom:1px solid rgba(1,1,1,0.15)
+    border-bottom:1px solid rgba(1,1,1,0.15);
 }
 
 .display_title {
@@ -33,7 +34,7 @@ li {
     margin-bottom:50px;
     padding-left:8.5vw;
     /* border: 2px solid black; */
-    padding-top:120px;
+    padding-top:110px;
     padding-right:0px;
 }
 
@@ -67,7 +68,7 @@ li {
 
 }
 
-.call_to_action > button {
+.call_to_action > a > button {
     width:156px;
     font-size:22px;
     font-weight:600;
@@ -79,6 +80,10 @@ li {
     
 }
 
+.call_to_action > a > button:hover {
+    background-color:#121147;
+}
+
 .call_to_action > div { /*Testimonials besides the call to action button*/
     width:35%;
     font-size:0.85rem;
@@ -88,7 +93,7 @@ li {
 /*Display Photo*/
 .display_photo {
     width:30%;
-    /* border:2px solid blue; */
+    height:100%;
 }
 
 .carousels {
@@ -112,7 +117,7 @@ li {
     height:0;
     padding-bottom:100%;
     border-radius: 1000px;
-    margin-top:180px;
+    margin-top:170px;
 }
 
 /*Look at the combination between the image container and image*/
@@ -142,14 +147,11 @@ li {
 
 .button_carousel {
     width:40px;
-    /* background:red; */
     height:100%;
+    /* display:flex;
+    align-items:center; */
 }
 
-.button_carousel > span {
-    color:black;
-    font-size:3.7vw;
-}
 /*before second child and after second child: line. set the status height, font weight, font size*/
 .display_status { 
     width:22%;
@@ -199,9 +201,9 @@ li {
 }
 
 /*Small Dekstop Checkpoint*/
-@media screen and (max-width: 1060px) {
+@media screen and (max-width: 1200px) {
     .carousel_button {
-        color:black;
+        color:white;
         opacity:80%;
     }
 
@@ -227,11 +229,12 @@ li {
 
     .carousel_button {
         color:black;
-        opacity:80%;
+        opacity:100%;
     }
 
     .display {
         flex-wrap:wrap;
+        height:auto;
     }
 
     .headline {
@@ -278,6 +281,7 @@ li {
         display:flex;
         justify-content:center;
         margin-bottom:50px;
+        
     }
 
     .carousels {
@@ -310,12 +314,29 @@ li {
 
 }
 
-/* .heart-container {
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:yellow;
-} */
+@media screen and (max-width:500px) {
+    .carousels {
+        height:100%;
+        width:90%;
+        display:flex;
+        justify-content:center;
+    }
+
+    .parent_of_circle {
+        display:flex;
+        justify-content:center;
+        width:80%;
+    }
+
+    .circle {
+        position:relative;
+        bottom:90px;
+    }
+  }
+
+  .button_carousel > div {
+    font-size:30px;
+}
 
 .heart {
     /* position:relative;

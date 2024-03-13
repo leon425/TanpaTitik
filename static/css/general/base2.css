@@ -18,13 +18,8 @@
   width:100%;
   font-weight:500;
   font-size:18px;
-  /* height:85px; */
+  height:85px;
 }
-
-/* #navMain > div {
-  width:100%;
-} */
-
 
 .nav-item {
   margin-right:50px;
@@ -47,12 +42,12 @@ color:rgba(1,1,1,0.75);
   display:flex;
   cursor:pointer;
   padding: 10px 20px;
-  /* background:yellow; */
   border-radius:30px;
   align-items:center;
   position:relative;
   top:3px;
   width:20px;
+  right:4px;
 }
 
 .search-icon {
@@ -71,11 +66,12 @@ color:rgba(1,1,1,0.75);
 }
 
 .search-box:hover input {
-  width:160px;
+  width:150px;
   z-index:1;
   position:relative;
   /* background:yellow; */
   height:35px;
+  margin-right:10px;
 }
 
 .search-box:hover div {
@@ -96,7 +92,6 @@ color:rgba(1,1,1,0.75);
   top:9.5px;
   font-size:15px;
   color:rgba(1,1,1,0.7) !important;
-
 }
 
 .search-box div {
@@ -155,8 +150,16 @@ height:60px;
 }
 
 
-@media screen and (max-width: 990px) {
-/*Besides navbar collapes, add the cart, wishlist, etc. Maybe use JS DOM*/
+@media screen and (max-width: 992px) {
+
+  #navMain {
+    height:auto;
+  }
+
+  .nav-item {
+    margin:8px;
+  
+  }
 }
 
 
@@ -213,4 +216,47 @@ height:60px;
   /* object-position: top; */
   /* z-index:1; */
   margin:0px !important;
+}
+
+@media screen and (max-width:550px) {
+  
+  #logo_div {
+    margin-right:35px;
+    margin-left:25px;
+  }
+
+  .logo {
+      width:19px;
+      height:50px;
+  }
+
+  .nav_text {
+    margin-right:50px;
+    }
+}
+
+@media screen and (max-width:432px) {
+  
+  #logo_div {
+    margin:0px 10px 0px 20px;
+
+  }
+
+  .nav_text {
+    margin-right:30px;
+    width:175px;
+    margin-top:10px;
+    }
+
+  .search-box:hover div {
+    width:175px;
+  }
+
+  .search-box:hover input {
+    width:120px;
+  }
+
+  .search-box:hover .search-icon {
+    margin-left:20px;
+  }
 }

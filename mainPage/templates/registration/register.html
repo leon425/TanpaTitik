@@ -32,13 +32,13 @@
         <div class="register-form">
           <form method="POST" action="">
             {% csrf_token %}
-            <div class="input-form">
-              <div>{{form.username}}</div>
-              <div>{{form.first_name}}</div>
-              <div>{{form.password1}}</div>
-              <div> {{form.last_name}}</div>
-              <div>{{form.password2}}</div>
-              <div> {{form.email}}</div>
+            <div class="input-form" id="input-form">
+              <div class="input-cont">{{form.username}}</div>
+              <div class="input-cont">{{form.first_name}}</div>
+              <div class="input-cont">{{form.password1}}</div>
+              <div class="input-cont"> {{form.last_name}}</div>
+              <div class="input-cont">{{form.password2}}</div>
+              <div class="input-cont"> {{form.email}}</div>
             </div>
 
             {% if form.errors %}
@@ -71,15 +71,13 @@
   <script type="text/javascript" src="{% static '/js/cart.js' %}"></script>
 
   <script>
-    let form_field = document.getElementsByTagName('input');
-    form_field[2].placeholder = 'Username';
-    form_field[3].placeholder = 'First Name';
-    form_field[4].placeholder = 'Password';
-    form_field[5].placeholder = 'Last Name';
-    form_field[6].placeholder = 'Re-enter Password';
-    form_field[7].placeholder = 'Email';
-
-    console.log(form_field)
+    let form_field = document.getElementById('input-form');
+    form_field.children[0].firstElementChild.placeholder = 'Username';
+    form_field.children[1].firstElementChild.placeholder = 'First Name';
+    form_field.children[2].firstElementChild.placeholder = 'Password';
+    form_field.children[3].firstElementChild.placeholder = 'Last Name';
+    form_field.children[4].firstElementChild.placeholder = 'Re-enter Password';
+    form_field.children[5].firstElementChild.placeholder = 'Email'
 
   </script>
 

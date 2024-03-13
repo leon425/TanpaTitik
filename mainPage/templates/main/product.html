@@ -355,11 +355,10 @@
             <div style="width:100%;display:flex;justify-content:center;"><div class="product-col-recommentation" style="font-size:30px;margin-top:30px;margin-bottom:15px;">RECOMMENDED FOR YOU</div></div>
 
             <!--CAROUSEL-->
-            <div class="swiper mySwiper">
-            <div class="swiper-wrapper col-products" style=""> <!--Product Container-->
+            <div class="col-products" style=""> <!--Product Container-->
                 {% for product in products %}
                 {% if product.id != thisProduct.id %} 
-                <div class="swiper-slide product" style="">
+                <div class="product">
                 <a href="/product/{{product.id}}" style="width:100%;height:100%;" >
                   <div class="product-img-container">
                     <img class="img_product" src="{{product.img.url}}" alt="{{product.color_circle}}" style="position:relative;bottom:71px;">
@@ -441,16 +440,8 @@
                 </div><!--product-->
                 {% endif %}
                 {% endfor %}
-            </div> <!--col-products--> <!--swiper-wraper-->
+            </div> <!--col-products--> 
 
-            <!-- If we need pagination -->
-            <div class="swiper-pagination"></div>
-
-            <!-- If we need navigation buttons -->
-            <div class="swiper-button-prev but-prev"></div>
-            <div class="swiper-button-next but-next"></div>
-
-          </div> <!--swiper mySwiper-->
 
 
 

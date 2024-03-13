@@ -1,4 +1,3 @@
-
 if (document.getElementById('carouselExampleIndicators') != undefined) {
   //Bootstrap Carousel Circle Colour
   var myCarousel = new bootstrap.Carousel(document.getElementById('carouselExampleIndicators'));
@@ -10,82 +9,15 @@ if (document.getElementById('carouselExampleIndicators') != undefined) {
 
   // Log the index of the active item
   var activeIndex = $('.carousel-item.active').index();
-  // console.log('Active item index:', activeIndex);
 
   //Retrieve the circle color from alt attribute
   var circle_color = $('.carousel-item.active img').attr('alt');
-  // console.log('Active item image source:', circle_color);
 
   const circle = document.querySelector(".circle");
   circle.style.backgroundColor = circle_color; //add animation. Speed up the animatin
 
   });
 }
-
-$(function(){
-// SWIPER JS
-var swiper = new Swiper(".theSwiper", {
-    // Optional parameters
-    direction: 'horizontal',
-    loop: true,
-    slidesPerView: 3,
-    spaceBetween: 50,
-
-    // If we need pagination
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-
-    // Navigation arrows
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-
-    // And if we need scrollbar
-    scrollbar: {
-      el: '.swiper-scrollbar',
-    },
-
-    // breakpoints: {
-    //   // 640: {
-    //   //   slidesPerView: 2,
-    //   //   spaceBetween: 20,
-    //   // },
-    //   // 768: {
-    //   //   slidesPerView: 4,
-    //   //   spaceBetween: 40,
-    //   // },
-    //   1000: {
-    //     slidesPerView: 1,
-    //     spaceBetween: 80,
-    //   },
-    // },
-
-  });
-
-  // //Breakpoints
-  // $(window).on('resize', function(){
-  //   var width = $(window).width();
-  //   if (width < 1200 && width >= 1000) {
-  //     swiper.params.slidesPerView = 2;
-  //     swiper.params.spaceBetween = 180;
-  //   }
-  //   if(width < 1000 && width >= 500) {
-  //       swiper.params.slidesPerView = 1;
-  //       swiper.params.spaceBetween = 50;
-  //   } else if(width < 500) {
-  //       swiper.params.slidesPerView = 1;
-  //       swiper.params.spaceBetween = 30;
-  //   } else {
-  //       swiper.params.slidesPerView = 3;
-  //       swiper.params.spaceBetween = 50;
-  //   }
-  //   swiper.update();
-  // }).resize();    
-
-});
 
 // Wishlist Button front-end
 $(function() {
@@ -94,26 +26,6 @@ $(function() {
     });
   });
 
-
-// let action2 = null;
-
-//   $(document).ready(function() {
-    
-//     $(".heart").click(function() {
-//         // Toggle the class "is-active"
-//         $(this).toggleClass("is-active");
-     
-//         // Check if the clicked element has the class "is-active"
-//         if ($(this).hasClass("is-active")) {
-//             // If it has the class, perform some action
-//             action2 = "remove";
-//         } else {
-//             // If it does not have the class, perform some other action
-//             action2 = "add";
-//         }
-//     });
-//     $(".heart").click();
-// });
 
 // Wishlist send to back-end
 let updateButtons = document.getElementsByClassName('update-cart');
