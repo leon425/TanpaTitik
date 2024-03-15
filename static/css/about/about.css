@@ -125,7 +125,7 @@
 
 .usp-phrase-text {
     font-weight:500;
-    font-size:18px;
+    font-size:16px;
     text-align:justify;
 }
 
@@ -150,7 +150,7 @@
 .usp-phrase-text > ul > li {
     list-style-type:circle;
     font-weight:500;
-    font-size:18px;
+    font-size:16px;
     margin:15px 0px 15px 0px;
     text-align:justify;
 }
@@ -169,10 +169,14 @@
 }
 
 .usp-frame-resp {
-    width:200px;
-    height:400px;
-    background:#D9D9D9;
-    border-radius:20px;
+    width:180px;
+    height:300px;
+}
+
+.usp-frame-img-resp {
+    width:500px;
+    height:500px;
+    bottom:87px;
 }
 
 .usp-phrase-text-resp {
@@ -183,43 +187,6 @@
 .usp-phrase-text-resp > ul > li {
     font-size:17px;
 
-}
-
-@media screen and (max-width: 790px) {
-
-    .usp-whatis-vision-mission-resp {
-        display:block;
-    }
-
-    .usp-whatis-vision-mission {
-        display:none;
-    }
-
-    .about-shape-cont {
-        flex-wrap:wrap;
-        flex-direction:column-reverse;
-        align-items:center;
-        justify-content:flex-start;
-
-    }
-
-    .about-shape-1 {
-        margin-right:0px;
-        position:relative;
-        bottom:180px;
-    }
-
-    .about-logo-div {
-        top:500px;
-    }
-
-    .about-company {
-        margin-top:0px;
-    }
-
-    .about-usp {
-        width:80%;
-    }
 }
 
 .about-video {
@@ -262,11 +229,20 @@
     border:1px solid rgba(1,1,1,0.8);
     background:white;
     margin:20px;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.meetTheTeam-img {
+    width:100%;
 }
 
 .meetTheTeam-label {
-    position:relative;
-    top:148px;
+    position:absolute;
+    top:160px;
     z-index:1;
     display:flex;
     justify-content:space-around;
@@ -297,4 +273,46 @@
     font-weight:800;
     color:white;
     line-height:1.2;
+}
+
+@media screen and (max-width: 790px) {
+
+    .usp-whatis-vision-mission-resp {
+        display:block;
+    }
+
+    .usp-whatis-vision-mission {
+        display:none;
+    }
+
+    .about-shape-cont {
+        flex-wrap:wrap;
+        flex-direction:column-reverse;
+        align-items:center;
+        justify-content:flex-start;
+
+    }
+
+    .about-shape-1 {
+        margin-right:0px;
+        position:relative;
+        bottom:180px;
+    }
+
+    .about-logo-div {
+        top:500px;
+    }
+
+    .about-company {
+        margin-top:0px;
+    }
+
+    .about-usp {
+        width:80%;
+    }
+
+    .meetTheTeam-shape > div {
+        font-size:16px;
+    }
+
 }

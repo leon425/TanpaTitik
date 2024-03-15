@@ -1,3 +1,5 @@
+
+
 let cartButton = document.getElementsByClassName('cartButton');
 let wishlistButton = document.getElementsByClassName('wishlistButton');
 
