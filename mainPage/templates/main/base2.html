@@ -98,9 +98,12 @@
   </div>
 
   
-  <div id="loading-overlay" class="loading-overlay" style="width:100%;height:2000px;background:red;">
-    loading...
+  <div id="loading-overlay" class="loading-overlay" style="width:100%;height:2000px;display:flex;justify-content:center;align-items:center;">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
  </div>
+
 <div id="content" ,name="content", class="main">
   
     {% block content %} <!--So, all of the block content in other templates will go to base2.html content-->
