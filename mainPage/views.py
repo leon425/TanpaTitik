@@ -9,6 +9,7 @@ from .forms import *
 import json
 import time
 from .shipping import *
+import http.client
 
 def base2(request):
     return render(request, "main/base2.html", {})
@@ -304,6 +305,10 @@ def checkout_done(request,pk):
 def about (request):
     logo = Additional.objects.get(name="logo")
     logo2 = Additional.objects.get(name="logo2")
+    about_us_1 = Additional.objects.get(name="about_us_1")
+    about_us_2 = Additional.objects.get(name="about_us_2")
+    about_us_3 = Additional.objects.get(name="about_us_3")
+    about_us_4 = Additional.objects.get(name="about_us_4")
     identities = Identity.objects.all()
 
     ceo = MeetTheTeam.objects.filter(division="CEO (Chief Executive Officer)")
@@ -321,8 +326,7 @@ def about (request):
         order = {'get_cart_total':0, 'get_cart_items':0}
         customer_wishlist = []
 
-
-    context = {"logo":logo,"logo2":logo2,"customer_wishlist":customer_wishlist,"customer":customer,"order":order, "identities":identities, "ceo":ceo, "production_division":production_division, "marketing_division":marketing_division, "design_division":design_division, "finance_division":finance_division,}
+    context = {"logo":logo,"logo2":logo2,"customer_wishlist":customer_wishlist,"customer":customer,"order":order, "identities":identities, "ceo":ceo, "production_division":production_division, "marketing_division":marketing_division, "design_division":design_division, "finance_division":finance_division, "about_us_1":about_us_1, "about_us_2":about_us_2,"about_us_3":about_us_3,"about_us_4":about_us_4, }
     return render(request, "main/about.html", context)
 
 def profile(request):
@@ -482,6 +486,7 @@ def updateCartQuantity(request):
         item.save()
 
     return JsonResponse('Cart quantity was updated', safe=False) 
+
 
 def removeFromCartWishlist(request):
     customer = request.user.customer

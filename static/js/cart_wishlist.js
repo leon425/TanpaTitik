@@ -29,6 +29,47 @@ for (let i = 0; i<buttonLetter.length; i++) {
 
 }
 
+// function updateCartQuantity(itemId, sideAction) {
+//     $.ajax({
+//       type: "POST",
+//       url: "/updateCartQuantity/",
+//       data: {
+//         itemId: itemId,
+//         sideAction: sideAction,
+//         csrfmiddlewaretoken: csrftoken
+//       },
+//       success: function(response) {
+//         // Update the HTML based on the response
+//         if (sideAction === "add") {
+
+//             const selectedElements = $('.number[data-item="' + itemId + '"] .letter');
+//             console.log(selectedElements.length);
+
+//             selectedElements.html(parseInt($('.number[data-item="' + itemId + '"] .letter').html()) + 1);
+
+//         } else if (sideAction === "remove") {
+//           $('.number .letter[data-item="' + itemId + '"]').html(parseInt($('.number .letter[data-item="' + itemId + '"]').html()) - 1);
+//         }
+//         console.log(response)
+//       },
+//       error: function(error) {
+//         console.log(error);
+//       }
+//     });
+
+    
+//   }
+  
+//   $('.quantity-button.subs').click(function() {
+//     updateCartQuantity($(this).data('item'), 'remove');
+//   });
+  
+//   $('.quantity-button.add').click(function() {
+//     updateCartQuantity($(this).data('item'), 'add');
+//   });
+
+  
+
 function updateCartQuantity(itemId,sideAction) {
     // console.log("User is logged in");
     // console.log(action)
@@ -54,7 +95,6 @@ function updateCartQuantity(itemId,sideAction) {
     .catch((message) => {
         console.log(message);
     })
-
 
 }
 

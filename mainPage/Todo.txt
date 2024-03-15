@@ -36,3 +36,7 @@ coupon
 
 DELIVERY
 delivery date & shipping cost & shipping mechanism 
+
+
+CART.JS
+Failed to use AJAX because when page the add or remove cart quantity is clicked, it doesn't sync with the database.

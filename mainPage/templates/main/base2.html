@@ -19,12 +19,18 @@
     {% comment %} <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}"> {% endcomment %}
     <link rel="icon" type="image/png" sizes="192x192" href="/media/images/Tanpatitik_logo_baru_2.png">
+
+    <!--JQuery Installation-->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    
     {% block head %}
     
     {% endblock head %}
 
     <style>
-      
+      #content {
+        display:none;
+      }
     </style>
 
 </head>
@@ -87,24 +93,16 @@
     </div>
   </nav>  
 
-  {% comment %} <nav class="navbar navbar-expand-lg bg-light fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-          <a class="nav-link" href="#">Features</a>
-          <a class="nav-link" href="#">Pricing</a>
-          <a class="nav-link disabled">Disabled</a>
-        </div>
-      </div>
-    </div>
-  </nav> {% endcomment %}
+  <div class="spinner-border" id="spinner" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
 
+  
+  <div id="loading-overlay" class="loading-overlay" style="width:100%;height:2000px;background:red;">
+    loading...
+ </div>
 <div id="content" ,name="content", class="main">
+  
     {% block content %} <!--So, all of the block content in other templates will go to base2.html content-->
 
     {% endblock %}
@@ -138,15 +136,18 @@
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-<!--JQuery Installation-->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-
 <!--Search Bar Script-->
 <script>
   var searchBar = document.getElementById("search-bar");
   var searchIcon = document.getElementById("search-icon");
 
- 
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+  document.getElementById('loading-overlay').style.display = 'none';
+  document.getElementById('content').style.display = 'block';
+  });
 </script>
 
 {% block scripts %}

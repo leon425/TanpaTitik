@@ -9,9 +9,13 @@
     <meta charset="UTF-8">
     <title>{% block title %} Cart | TanpaTitik{% endblock %}</title>
 
+  
     {% block head %}
     <link rel="stylesheet" type="text/css" href="{% static '/css/general/base2.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static '/css/cart_wishlist/cart.css' %}">
+    <!--JQuery Installation-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     {% endblock head %}
 
 
@@ -82,7 +86,8 @@
                       <div class="quantity-button subs buttonLetter" data-item="{{item.id}}" data-sideaction="remove"><div class="but-let" >-</div></div>
                     {% endif %}
 
-                      <div class="number"><div class="letter" style="font-size:12px;">{{item.quantity}}</div></div>
+                    <div class="number"><div class="letter" style="font-size:12px;">{{item.quantity}}</div></div>
+                    {% comment %} <div class="number" data-item="{{item.id}}"><div class="letter" style="font-size:12px;">{{item.quantity}}</div></div> {% endcomment %}
 
                     {% if item.quantity < item.product.stock %}
                       <div class="quantity-button add buttonLetter" data-item="{{item.id}}" data-sideaction="add"><div class="but-let">+</div></div>
@@ -188,6 +193,7 @@
     }
     const csrftoken = getToken('csrftoken');
   </script>
+
 
   {% endblock scripts %}
 
