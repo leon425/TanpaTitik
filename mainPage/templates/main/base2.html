@@ -144,10 +144,11 @@
 </script>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById('loading-overlay').style.display = 'none';
+  window.onload = function () {
+    document.getElementById('loading-overlay').style.display = 'none';
   document.getElementById('content').style.display = 'block';
-  });
+
+  };
 </script>
 
 {% block scripts %}
