@@ -64,7 +64,7 @@ function updateUserWishlist(productId, action) {
     })
     .then((data) => { //promise
         console.log(data);
-        const myTimeout = setTimeout(() => {location.reload()}, 700);
+        const myTimeout = setTimeout(() => {location.reload()}, 500);
     })
     .catch((message) => {
         console.log(message);
