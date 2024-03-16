@@ -31,7 +31,60 @@
     <div class="container cart-wishlist-content">
         <div class="cart-wishlist-heading" style="margin-bottom:75px;">CHECKOUT</div>
         <div class="checkout-page">
-            <div class="checkout-page-1"> 
+            
+            <!--ORDER SUMMARY-->
+            <div class="checkout-page-2">
+                <div class="order-summary">
+                  <div class="sum-heading">ORDER SUMMARY | {{order.get_cart_items}} ITEM(S)</div>
+      
+                  <!--only the items-->
+                  <div class="item-subtotal" style="margin-bottom:10px;"> 
+                    <div class="item-subtotal-text">Items(s) subtotal</div>
+                    <div class="item-subtotal-text">Rp {{order.get_cart_total|add_fullstop}}</div> 
+                  </div>
+                  <!--shipping cost-->
+                  <div class="item-subtotal" style="margin-bottom:10px;"> 
+                    <div class="item-subtotal-text">Shipping Cost</div>
+                    <div class="item-subtotal-text">Rp {{order.shipping_cost|add_fullstop}}</div> 
+                  </div>
+                  <!--tax-->
+                  <div class="item-subtotal"> 
+                    <div class="item-subtotal-text">VAT</div>
+                    <div class="item-subtotal-text">Rp {{order.calculate_vat|add_fullstop}}</div> 
+                  </div>
+                  
+                  <!--Including the taxes, additional fees, and discount -->
+                  <div class="item-subtotal subtotal">
+                    <div class="subtotal-text">SUBTOTAL</div>
+                    <div class="subtotal-text">Rp {{order.calculate_subtotal|add_fullstop}}</div>  <!--haven't add the fees and discount available-->
+                  </div>
+      
+                  <!--the total that you are going to pay-->
+                  <div class="item-subtotal">
+                    <div class="subtotal-text" style="font-weight:700;">ORDER TOTAL</div>
+                    <div class="subtotal-text" style="font-weight:700;">Rp {{order.calculate_subtotal|add_fullstop}}</div>  <!--haven't add the fees and discount available-->
+                  </div>
+      
+                </div> <!--order-summary-->
+
+                <div class="order-summary" style="padding:20px;">
+                  <div class="sum-heading" style="margin-bottom:10px;">ORDER ITEM(S)</div>
+                  <div style='display:flex;justify-content:flex-start;flex-wrap:wrap;'>
+                    {% for item in items %}
+                      <div class="display-items">
+                        <div class="display-items-pict">
+                          {% comment %} <img class="d-block w-100 img_overview" src="{{item.product.img.url}}" alt="{{item.product.name}}"> {% endcomment %}
+                        </div>
+                        <div class="summary-quantity">x{{item.quantity}}</div>
+                      </div>
+                    {% endfor %}
+                  </div>
+      
+                </div> <!--order-summary-->
+
+              </div> <!--cart-page-2-->
+
+              <div class="checkout-page-1"> 
                 <div class="delivery">
                     <div class="delivery-payment-heading">1. DELIVERY OPTION</div>
                     <div class="delivery-box">
@@ -206,58 +259,6 @@
 
 
             </div> <!--checkout-page-1-->
-
-            <!--ORDER SUMMARY-->
-            <div class="checkout-page-2">
-                <div class="order-summary">
-                  <div class="sum-heading">ORDER SUMMARY | {{order.get_cart_items}} ITEM(S)</div>
-      
-                  <!--only the items-->
-                  <div class="item-subtotal" style="margin-bottom:10px;"> 
-                    <div class="item-subtotal-text">Items(s) subtotal</div>
-                    <div class="item-subtotal-text">Rp {{order.get_cart_total|add_fullstop}}</div> 
-                  </div>
-                  <!--shipping cost-->
-                  <div class="item-subtotal" style="margin-bottom:10px;"> 
-                    <div class="item-subtotal-text">Shipping Cost</div>
-                    <div class="item-subtotal-text">Rp {{order.shipping_cost|add_fullstop}}</div> 
-                  </div>
-                  <!--tax-->
-                  <div class="item-subtotal"> 
-                    <div class="item-subtotal-text">VAT</div>
-                    <div class="item-subtotal-text">Rp {{order.calculate_vat|add_fullstop}}</div> 
-                  </div>
-                  
-                  <!--Including the taxes, additional fees, and discount -->
-                  <div class="item-subtotal subtotal">
-                    <div class="subtotal-text">SUBTOTAL</div>
-                    <div class="subtotal-text">Rp {{order.calculate_subtotal|add_fullstop}}</div>  <!--haven't add the fees and discount available-->
-                  </div>
-      
-                  <!--the total that you are going to pay-->
-                  <div class="item-subtotal">
-                    <div class="subtotal-text" style="font-weight:700;">ORDER TOTAL</div>
-                    <div class="subtotal-text" style="font-weight:700;">Rp {{order.calculate_subtotal|add_fullstop}}</div>  <!--haven't add the fees and discount available-->
-                  </div>
-      
-                </div> <!--order-summary-->
-
-                <div class="order-summary" style="padding:20px;">
-                  <div class="sum-heading" style="margin-bottom:10px;">ORDER ITEM(S)</div>
-                  <div style='display:flex;justify-content:flex-start;flex-wrap:wrap;'>
-                    {% for item in items %}
-                      <div class="display-items">
-                        <div class="display-items-pict">
-                          {% comment %} <img class="d-block w-100 img_overview" src="{{item.product.img.url}}" alt="{{item.product.name}}"> {% endcomment %}
-                        </div>
-                        <div class="summary-quantity">x{{item.quantity}}</div>
-                      </div>
-                    {% endfor %}
-                  </div>
-      
-                </div> <!--order-summary-->
-
-              </div> <!--cart-page-2-->
 
         </div> <!--cart-page-->
     </div>

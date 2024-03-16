@@ -140,7 +140,7 @@
       {% for person in ceo %}
       <div class="meetTheTeam-card">
         {% if person.img %}
-        <img class="meetTheTeam-img" src="{{person.img.url}}">
+        <a href="{{person.img.url}}"><img class="meetTheTeam-img" src="{{person.img.url}}"></a>
         {% endif %}
         <div class="meetTheTeam-label">
           {% if person.job_desc != None  %}
