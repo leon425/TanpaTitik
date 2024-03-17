@@ -18,11 +18,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 from mainPage import views 
+from mainPage.views import EditProfile
 
 urlpatterns = [
     path('admin/', admin.site.urls), #admin dashboard
     path("superUserPage", views.superUserPage, name="superUserPage"),
+    # path("edit_profile/", auth_views.PasswordChangeView.as_view(template_name="registration/edit_profile.html"), name="edit_profile"),
+    path("edit_profile/", EditProfile.as_view(template_name="registration/edit_profile.html"), name="edit_profile"),
     path('', include("django.contrib.auth.urls")), # django will get to django.contrib.auth application and go to urls file
 
     #mainPage
@@ -45,6 +49,7 @@ urlpatterns = [
     path("paymentMethod/", views.paymentMethod, name="paymentMethod"),
     path("confirmOrder/", views.confirmOrder, name="confirmOrder"),
     path("load_cities/", views.load_cities, name="load_cities"),
+    path("temp/", views.temp, name="temp"),
 
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #add the path. static files. 2 arguments. 1 for the url and 1 from the root. 

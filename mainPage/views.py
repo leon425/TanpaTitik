@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
 from django.contrib import messages
 from .models import *
 from .forms import *
@@ -10,6 +11,12 @@ import json
 import time
 from .shipping import *
 import http.client
+import midtransclient
+
+class EditProfile(PasswordChangeView):
+    form_edit_profile = PasswordChangeForm
+    success_url = reverse_lazy('profile')
+
 
 def base2(request):
     return render(request, "main/base2.html", {})
@@ -180,6 +187,34 @@ def checkout(request):
             newAddress_isValid = True
         else:
             newAddress_isValid = False
+
+        # PAYMENT INTEGRATION
+        # Create Snap API instance
+        snap = midtransclient.Snap(
+            # Set to true if you want Production Environment (accept real transaction).
+            is_production=False,
+            server_key='SB-Mid-server-hlFNJieGBtXM7-IfvdUpFlPo'
+        )
+        # Build API parameter
+        param = {
+            "transaction_details": {
+                "order_id": str(order.id+103),
+                "gross_amount": order.calculate_subtotal
+            }, "credit_card":{
+                "secure" : True
+            }, "customer_details":{
+                "first_name": customer.user.first_name,
+                "last_name": customer.user.last_name,
+                "email": customer.user.email,
+            }, "content-type":"application/json",
+                "accept":"application/json",
+        }
+
+        transaction = snap.create_transaction(param)
+        
+        transaction_token = transaction['token']
+        print(transaction_token)
+        payment_url = "https://app.sandbox.midtrans.com/snap/v2/vtweb/"+transaction_token
   
     else:
         customer = "Guest"
@@ -188,11 +223,22 @@ def checkout(request):
         newAddress = None
         items = []
         newAddress_isValid = False
+        payment_url = "#"
 
     form_shipping = LocationForm()
     
-    context = {"logo":logo,"customer":customer,"order":order,"items":items, "form_shipping":form_shipping,"newAddress":newAddress, "newAddress_isValid":newAddress_isValid, "customer_wishlist":customer_wishlist,}
+    context = {"logo":logo,"customer":customer,"order":order,"items":items, "form_shipping":form_shipping,"newAddress":newAddress, "newAddress_isValid":newAddress_isValid, "customer_wishlist":customer_wishlist,"payment_url":payment_url}
     return render(request, "main/checkout.html", context) 
+
+def temp(request):
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order = Order.objects.filter(customer=customer, current=True)
+        thisOrder = order[0]
+    else:
+       customer = None
+       thisOrder = 0
+    return redirect("/checkout/done/"+thisOrder)
 
 def checkout_done(request,pk):
     logo = Additional.objects.get(name="logo")
@@ -208,87 +254,91 @@ def checkout_done(request,pk):
         customer_wishlist = Wishlist.objects.filter(customer=customer)
         newAddress, created = ShippingAddress.objects.get_or_create(customer=customer)
 
+        order_checkout_done.current = False
+        order_checkout_done.save()
 
-        # ORDER PLACEMENT
-        if order_checkout_done.status == OrderStatus.objects.get(name="Placed"): 
+        # REMOVE PRODUCT ORIGINAL STOCK
+        for item in items:
+            print(item.product.remove_stock(item.quantity))
+            item.product.save()
 
-            # SETTING THE PAYMENT
-            if Payment.objects.filter(customer=customer,order=order_checkout_done).exists():
-                payment = Payment.objects.get(customer=customer,order=order_checkout_done)
-            else:
-                payment= Payment.objects.create(customer=customer, order=order_checkout_done, payment_method=order_checkout_done.payment_method, complete=False)
+        # # ORDER PLACEMENT
+        # if order_checkout_done.status == OrderStatus.objects.get(name="Placed"): 
 
-            # ORDER IS COMPLETE AND NOT CURRENT ANYMORE (CAN'T EDIT IN CART)
-            order_checkout_done.current = False
-            order_checkout_done.save()
-            print(order_checkout_done.current)
+        #     # SETTING THE PAYMENT
+        #     if Payment.objects.filter(customer=customer,order=order_checkout_done).exists():
+        #         payment = Payment.objects.get(customer=customer,order=order_checkout_done)
+        #     else:
+        #         payment= Payment.objects.create(customer=customer, order=order_checkout_done, payment_method=order_checkout_done.payment_method, complete=False)
 
-            # REMOVE PRODUCT ORIGINAL STOCK
-            # for item in items:
-            #     print(item.product.remove_stock(item.quantity))
-            #     item.product.save()
+        #     # ORDER IS COMPLETE AND NOT CURRENT ANYMORE (CAN'T EDIT IN CART)
+        #     order_checkout_done.current = False
+        #     order_checkout_done.save()
+        #     print(order_checkout_done.current)
 
-            # IF MORE THAN 5 HOURS UNPAID
-            time_difference = time.time() - payment.payment_timestamp.timestamp()
-            if time_difference >= 5 * 60 * 60: # Have been Tested. FAILED TO WORK PROPERLY
-            # if time_difference >= 60:
-                order_checkout_done.status = OrderStatus.objects.get(name="Cancelled")
-                order_checkout_done.save()
-                payment.delete()
-                print(order_checkout_done.status)
-                # reject => delete payment. order set to false
-                # product stock restore
+        #     # REMOVE PRODUCT ORIGINAL STOCK
+        #     # for item in items:
+        #     #     print(item.product.remove_stock(item.quantity))
+        #     #     item.product.save()
 
-            # If Image uploaded => Status -> Pending
-            if request.method == 'POST':
-                payment_evidence_form = PaymentEvidence(request.POST, request.FILES)
-                if payment_evidence_form.is_valid():
-                    payment_evidence_pict = payment_evidence_form.cleaned_data.get("payment_evidence")
-                    payment.payment_evidence = payment_evidence_pict
-                    payment.complete = True
-                    payment.save()
-                    order_checkout_done.status = OrderStatus.objects.get(name="Pending (Waiting For Verification)")
-                    order_checkout_done.save()
+        #     # IF MORE THAN 5 HOURS UNPAID
+        #     time_difference = time.time() - payment.payment_timestamp.timestamp()
+        #     if time_difference >= 5 * 60 * 60: # Have been Tested. FAILED TO WORK PROPERLY
+        #     # if time_difference >= 60:
+        #         order_checkout_done.status = OrderStatus.objects.get(name="Cancelled")
+        #         order_checkout_done.save()
+        #         payment.delete()
+        #         print(order_checkout_done.status)
+        #         # reject => delete payment. order set to false
+        #         # product stock restore
+
+        #     # If Image uploaded => Status -> Pending
+        #     if request.method == 'POST':
+        #         payment_evidence_form = PaymentEvidence(request.POST, request.FILES)
+        #         if payment_evidence_form.is_valid():
+        #             payment_evidence_pict = payment_evidence_form.cleaned_data.get("payment_evidence")
+        #             payment.payment_evidence = payment_evidence_pict
+        #             payment.complete = True
+        #             payment.save()
+        #             order_checkout_done.status = OrderStatus.objects.get(name="Pending (Waiting For Verification)")
+        #             order_checkout_done.save()
                     
 
-                    # send email to admin
-                    # Send email to customer => Your payment is being verified. Estimated time wait: 1 hour.
+        #             # send email to admin
+        #             # Send email to customer => Your payment is being verified. Estimated time wait: 1 hour.
 
                     
-            if order_checkout_done.status == OrderStatus.objects.get(name="Cancelled"):
-                # RESTORE THE PRODUCT STOCK
-                for item in items:
-                    print(item.product.restore_stock(item.quantity))
-                    item.product.save()
+        #     if order_checkout_done.status == OrderStatus.objects.get(name="Cancelled"):
+        #         # RESTORE THE PRODUCT STOCK
+        #         for item in items:
+        #             print(item.product.restore_stock(item.quantity))
+        #             item.product.save()
 
-            if order_checkout_done.status == OrderStatus.objects.get(name="Pending (Waiting For Verification)"): # Waiting for admin verification
-                pass
+        #     if order_checkout_done.status == OrderStatus.objects.get(name="Pending (Waiting For Verification)"): # Waiting for admin verification
+        #         pass
 
-            
-
-            # Admin Verifiy
-            if order_checkout_done.complete == True:
-                order_checkout_done.status = OrderStatus.objects.get(name="Packaged") #paid
-                order_checkout_done.save()
-                # send email to customer => Your order is being confirmed
+        #     # Admin Verifiy
+        #     if order_checkout_done.complete == True:
+        #         order_checkout_done.status = OrderStatus.objects.get(name="Packaged") #paid
+        #         order_checkout_done.save()
+        #         # send email to customer => Your order is being confirmed
 
                     
-                    
-                if order_checkout_done.payment_method == "Cash On Delivery":
-                    # wait for user confirmation regarding the policy
-                    # payment.complete == True
-                    # order.status == "paid"
-                    # order.save()
-                    pass
+        #         if order_checkout_done.payment_method == "Cash On Delivery":
+        #             # wait for user confirmation regarding the policy
+        #             # payment.complete == True
+        #             # order.status == "paid"
+        #             # order.save()
+        #             pass
 
-                if order_checkout_done.payment_method == "QRIS" or order_checkout_done.payment_method == "Bank Transfer":
-                    # wait for the uploaded evidence -> Verification. Last step = order.status = pending
-                    # Then, wait for user confirmation regarding the policy
-                    pass
+        #         if order_checkout_done.payment_method == "QRIS" or order_checkout_done.payment_method == "Bank Transfer":
+        #             # wait for the uploaded evidence -> Verification. Last step = order.status = pending
+        #             # Then, wait for user confirmation regarding the policy
+        #             pass
                     
-                # Make code to cancel order after 1 hour paying
+        #         # Make code to cancel order after 1 hour paying
 
-                # delivery status = packaged, delivered
+        #         # delivery status = packaged, delivered
 
     else: 
         customer = None

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% extends "main/base2.html" %}
+{% load static %}
+{% load custom_filters %}
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>{% block title %} TanpaTitik {% endblock %}</title>
+
+    {% block head %}
+
+    {% endblock head %}
+
+
+</head>
+
+<body>
+
+<div id="content", name="content", class="main" style="width:100%">
+    {% block content %} <!--itnside this block content, the elements will be pasted to the parent elements which is base2.html-->
+
+    <div class="container cart-wishlist-content" style="display:flex;justify-content:center">
+
+            </div> <!--cart-wishlist-content-->
+
+    {% endblock %}
+</div>
+
+
+
+</body>
+
+  {% block scripts %}
+
+  {% endblock scripts %}
+
+</html>
+

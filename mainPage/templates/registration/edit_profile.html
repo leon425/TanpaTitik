@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% extends "main/base2.html" %}
+{% load static %}
+{% load custom_filters %}
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>{% block title %} Login | TanpaTitik {% endblock %}</title>
+
+    {% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static '/css/user/register.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/cart_wishlist/cart.css' %}">
+    {% endblock head %}
+
+
+</head>
+
+<body>
+
+<div id="content", name="content", class="main" style="width:100%">
+    {% block content %} <!--itnside this block content, the elements will be pasted to the parent elements which is base2.html-->
+
+    <div class="container cart-wishlist-content" style="display:flex;justify-content:center">
+
+        <form method="POST" action="">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button class="btn">Edit Profile</div>
+        </form>
+
+    </div> <!--cart-wishlist-content-->
+
+    {% endblock %}
+</div>
+
+
+
+</body>
+
+
+  {% block scripts %}
+  <script type="text/javascript" src="{% static '/js/cart.js' %}"></script>
+
+  <script>
+
+  </script>
+
+
+  {% endblock scripts %}
+
+
+</html>
+

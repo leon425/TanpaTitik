@@ -48,10 +48,10 @@
                     <div class="item-subtotal-text">Rp {{order.shipping_cost|add_fullstop}}</div> 
                   </div>
                   <!--tax-->
-                  <div class="item-subtotal"> 
+                  {% comment %} <div class="item-subtotal"> 
                     <div class="item-subtotal-text">VAT</div>
                     <div class="item-subtotal-text">Rp {{order.calculate_vat|add_fullstop}}</div> 
-                  </div>
+                  </div> {% endcomment %}
                   
                   <!--Including the taxes, additional fees, and discount -->
                   <div class="item-subtotal subtotal">
@@ -202,11 +202,12 @@
                     <div class="item-subtotal-text">Rp {{order.shipping_cost|add_fullstop}}</div> 
                   </div>
                   <!--tax-->
-                  <div class="item-subtotal"> 
+                  {% comment %} <div class="item-subtotal"> 
                     <div class="item-subtotal-text">VAT</div>
                     <div class="item-subtotal-text">Rp {{order.calculate_vat|add_fullstop}}</div> 
                   </div>
-                  
+                   {% endcomment %}
+                   
                   <!--Including the taxes, additional fees, and discount -->
                   <div class="item-subtotal subtotal" style="border-top:1px solid rgba(1,1,1,0.6);border-bottom:1px solid rgba(1,1,1,0.6);padding-top:20px;padding-bottom:20px;">
                     <div class="subtotal-text">SUBTOTAL</div>
@@ -237,7 +238,9 @@
                               </div> <!--modal-body-->
                               <div class="modal-footer" style="display:flex;justify-content:center;align-items:center;">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width:75px !important;background:white !important; color:black !important;">No</button>
-                                <a href="/checkout/done/{{order}}"><button type="button" class="btn btn-primary" id="confirm_order" data-status="Placed" style="width:75px !important;background:#121147 !important;">Yes</button></a>
+                                {% comment %} <a href="/checkout/done/{{order}}"><button type="button" class="btn btn-primary" id="confirm_order" data-status="Placed" style="width:75px !important;background:#121147 !important;">Yes</button></a> {% endcomment %}
+                                <a href="{{payment_url}}"><button type="button" class="btn btn-primary" id="confirm_order" data-status="Placed" style="width:75px !important;background:#121147 !important;">Yes</button></a>
+                                <a href="{{payment_url}}">yes</a>
                               </div>
 
                           </div> <!--modal-content-->

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Additional(models.Model):
     name = models.CharField(max_length=200)
-    img = models.ImageField(null=True, blank=True, upload_to="images/") #TanpaTitik Logo
+    img = models.ImageField(null=True, blank=True, upload_to="images/") 
 
     def __str__(self):
         return self.name
@@ -158,14 +158,10 @@ class Order(models.Model):
         orderitems = self.orderitem_set.all()
         total = sum([item.get_item_total for item in orderitems]) #The total price of the cart (all OrderItems)
         return total
-    
-    @property
-    def calculate_vat(self):
-        return 20000
 
     @property
     def calculate_subtotal(self):
-        return self.get_cart_total + self.shipping_cost + self.calculate_vat
+        return self.get_cart_total + self.shipping_cost 
     
 
 class Payment(models.Model):
