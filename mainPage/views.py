@@ -217,7 +217,8 @@ def checkout(request):
         
         transaction_token = transaction['token']
         print(transaction_token)
-        payment_url = "https://app.sandbox.midtrans.com/snap/v2/vtweb/"+transaction_token
+        payment_url = "https://app.midtrans.com/snap/v2/vtweb/"+transaction_token
+        # payment_url = "https://app.sandbox.midtrans.com/snap/v2/vtweb/"+transaction_token
   
     else:
         customer = "Guest"
