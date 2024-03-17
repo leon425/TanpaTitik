@@ -132,7 +132,7 @@
 
                 </div> <!--delivery-->
                 
-                <div class="payment">
+                {% comment %} <div class="payment">
                   {% if order.payment_method == "" or order.payment_method == None %}
                     <div class="delivery-payment-heading">2.PAYMENT OPTION</div> 
                     <div class="payment-box">
@@ -185,7 +185,7 @@
                         {{order.payment_method}}
                     </div> <!--payment-box-->
                     {% endif %}
-                </div> <!--payment-->
+                </div> <!--payment--> {% endcomment %}
 
             
               <div class="checkout-order-summary">
