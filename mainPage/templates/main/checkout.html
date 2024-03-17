@@ -222,7 +222,8 @@
 
                   <!--must have address and payment method-->
                   <!--If form complete, toggle modal-->
-                  {% if newAddress_isValid == True and order.payment_method != "" and order.payment_method != None  %}
+                  {% comment %} {% if newAddress_isValid == True and order.payment_method != "" and order.payment_method != None  %} {% endcomment %}
+                  {% if newAddress_isValid == True %}
                   <div style="display:flex;justify-content:center;align-items:center;width:100%;"><button class="btn register-the-address" data-bs-toggle="modal" data-bs-target="#exampleModal2" >PLACE ORDER</button></div>
                   
                     <!--Modal-->
