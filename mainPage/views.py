@@ -13,6 +13,7 @@ import time
 from .shipping import *
 import http.client
 import midtransclient
+from decouple import config
 
 class EditProfile(PasswordChangeView):
     form_edit_profile = PasswordChangeForm
@@ -193,13 +194,13 @@ def checkout(request):
         # Create Snap API instance
         snap = midtransclient.Snap(
             # Set to true if you want Production Environment (accept real transaction).
-            is_production=False,
-            server_key='SB-Mid-server-hlFNJieGBtXM7-IfvdUpFlPo'
+            is_production = True,
+            server_key = config('server_key')
         )
         # Build API parameter
         param = {
             "transaction_details": {
-                "order_id": str(order.id+103),
+                "order_id": str(order.id),
                 "gross_amount": order.calculate_subtotal
             }, "credit_card":{
                 "secure" : True
