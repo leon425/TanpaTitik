@@ -21,7 +21,7 @@
 <div id="content", name="content", class="main" style="width:100%">
     {% block content %} <!--itnside this block content, the elements will be pasted to the parent elements which is base2.html-->
     <div class="container cart-wishlist-content">
-    <div class="cart-wishlist-heading">Wishlist(s)</div>
+    <div class="cart-wishlist-heading"><div>Wishlist(s)</div></div>
     {% if user.is_authenticated %}
     <div class="wishlist-length">{{customer.wishlist_length}} Item(s)</div>  
     <div class="cart-page">
