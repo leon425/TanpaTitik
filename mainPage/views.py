@@ -13,8 +13,7 @@ import time
 from .shipping import *
 import http.client
 import midtransclient
-import decouple
-import os
+from decouple import config
 
 class EditProfile(PasswordChangeView):
     form_edit_profile = PasswordChangeForm
@@ -193,11 +192,10 @@ def checkout(request):
 
         # PAYMENT INTEGRATION
         # Create Snap API instance
-        os.environ.update(decouple.Config(os.path.join(os.path.dirname(__file__), 'TanpaTitik\.env')))
         snap = midtransclient.Snap(
             # Set to true if you want Production Environment (accept real transaction).
             is_production = True,
-            server_key = os.getenv('server_key')
+            server_key = config('server_key')
         )
         # Build API parameter
         param = {
