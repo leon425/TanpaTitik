@@ -195,8 +195,8 @@ def checkout(request):
         snap = midtransclient.Snap(
             # Set to true if you want Production Environment (accept real transaction).
             is_production = True,
-            # Set the API server key as an environment variable 
-            server_key = os.environ.get("API_SERVER_KEY")
+            server_key = 'Mid-server-EwOcQ6HTnE6iTE_lbD0t6Odp'
+            # server_key = os.environ.get("API_SERVER_KEY")
         )
         # Build API parameter
         param = {
