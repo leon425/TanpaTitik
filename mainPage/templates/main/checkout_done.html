@@ -77,7 +77,7 @@
 
             </div> <!--order-summary-content-->
 
-            <div class="order-summary-content">
+            {% comment %} <div class="order-summary-content">
             {% if order_checkout_done.payment_method == 'Cash On Delivery' %}
                 <div class="order-number-heading">CASH ON DELIVERY</div>
                 <div class="order-add-info">Pelase pay the product with the courier on location</div>
@@ -101,7 +101,7 @@
 
             {% endif %}
 
-            </div> <!--order-summary-content for payment-->
+            </div> <!--order-summary-content for payment--> {% endcomment %}
 
             <div class="order-summary-content">
                 <div class="order-number-heading">SHIPPING ADDRESS</div>

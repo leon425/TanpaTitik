@@ -33,6 +33,11 @@ a {
 }
 
 @media screen and (max-width: 1209px) {
+
+    .product-page {
+        transform: scale(1);
+    }
+
     .product-page-head {
         flex-wrap:wrap;
         width:100%;

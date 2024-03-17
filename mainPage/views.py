@@ -8,6 +8,7 @@ from django.contrib import messages
 from .models import *
 from .forms import *
 import json
+import requests
 import time
 from .shipping import *
 import http.client
@@ -230,7 +231,14 @@ def checkout(request):
     context = {"logo":logo,"customer":customer,"order":order,"items":items, "form_shipping":form_shipping,"newAddress":newAddress, "newAddress_isValid":newAddress_isValid, "customer_wishlist":customer_wishlist,"payment_url":payment_url}
     return render(request, "main/checkout.html", context) 
 
+# urls redirect to purchase product => tempQWmUpMeekhv9NGxBGf5PzCnu8
 def temp(request):
+    
+    # def handle_http_notification(request):
+    #     if request.method == 'POST':
+    #         payload = request.body.decode('utf-8')
+    #         json_payload = json.loads(payload)
+
     if request.user.is_authenticated:
         customer = request.user.customer
         order = Order.objects.filter(customer=customer, current=True)
