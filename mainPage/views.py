@@ -13,7 +13,7 @@ import time
 from .shipping import *
 import http.client
 import midtransclient
-from decouple import config
+import os
 
 class EditProfile(PasswordChangeView):
     form_edit_profile = PasswordChangeForm
@@ -195,7 +195,8 @@ def checkout(request):
         snap = midtransclient.Snap(
             # Set to true if you want Production Environment (accept real transaction).
             is_production = True,
-            server_key = config('server_key')
+            # Set the API server key as an environment variable 
+            server_key = os.environ.get("API_SERVER_KEY")
         )
         # Build API parameter
         param = {
