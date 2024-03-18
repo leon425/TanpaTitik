@@ -34,7 +34,8 @@ SECRET_KEY='django-insecure-5nn__c0=w5+a@14!zbl8amn_(ex4#l*!2%!&6b#tzlu@$_-nku'
 # DEBUG = config('DEBUG', cast=bool)
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*','192.168.0.205']
+# python manage.py runserver 192.168.0.205:8000
 
 
 # Application definition

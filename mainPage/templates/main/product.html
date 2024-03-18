@@ -22,13 +22,11 @@
 
 <div id="content" ,name="content", class="main" style="width:100%;">
     {% block content %} <!--inside this block content, the elements will be pasted to the parent elements which is base2.html-->
-    
+    <div class="container-fluid" style="width:100%;display:flex;justify-content:center;">
         <div class="container product-page">
             <div class="product-page-head">
                 <div class="product-page-head-1">
                      <div class="head-img-div">
-
-                      
 
                       <!--Carousel-->
                       <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
@@ -69,7 +67,6 @@
                       </div> <!--carousel-->
 
                     </div>  
-                    {% comment %} <div class="img-id">1/12</div> {% endcomment %} <!--ntar dlu-->
 
                     <!--Description-->
                     <div class="head-desc not-mobile">
@@ -251,6 +248,7 @@
                 </div> <!--product-page-head-2-->
             </div> <!--product-page-head-->
 
+
             <div class="product-page-review-head">
               <div style="font-size:16px;font-weight:600;margin-right:20px;">REVIEWS</div>
               <div class="product-review" data-review="">
@@ -360,7 +358,7 @@
             </div> <!--product-review-text   REVIEW-->
 
 
-            <div style="width:100%;display:flex;justify-content:center;"><div class="product-col-recommentation" style="font-size:30px;margin-top:30px;margin-bottom:15px;">RECOMMENDED FOR YOU</div></div>
+            <div style="width:100%;display:flex;justify-content:center;"><div class="product-col-recommendation" style="font-size:25px;margin-top:30px;margin-bottom:15px;text-align:center;">RECOMMENDED FOR YOU</div></div>
 
             <div class="col-products" style=""> <!--Product Container-->
                 {% for product in products %}
@@ -471,6 +469,7 @@
         </div> <!--modal-dialog-->
     </div> <!--modal-->
 
+  </div><!--container-fluid-->
     {% endblock %}
 </div>
 

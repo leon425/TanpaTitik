@@ -201,7 +201,7 @@ def checkout(request):
         # Build API parameter
         param = {
             "transaction_details": {
-                "order_id": str(order.id),
+                "order_id": str(order.id+10),
                 "gross_amount": order.calculate_subtotal
             }, "credit_card":{
                 "secure" : True

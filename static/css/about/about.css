@@ -33,6 +33,7 @@
 .pict-1{
     height:700px;
     top:110px;
+    width:800px;
 }
 
 .pict-2 {
@@ -140,11 +141,11 @@
 }
 
 .usp-frame-img {
-    width:850px;
-    height:700px;
+    width:500px;
+    height:500px;
     object-fit:contain;
     position:relative;
-    bottom:85px;
+    top:8px;
 }
 
 .usp-phrase-text > ul > li {
@@ -171,12 +172,14 @@
 .usp-frame-resp {
     width:180px;
     height:300px;
+    position:relative;
+    display:flex;
+    align-items:center;
 }
 
 .usp-frame-img-resp {
-    width:500px;
+    width:180px;
     height:500px;
-    bottom:87px;
 }
 
 .usp-phrase-text-resp {
@@ -315,4 +318,14 @@
         font-size:16px;
     }
 
+}
+
+@media screen and (max-width: 450px) {
+    .about-shape {
+        width:100%;
+    }
+
+    .meetTheTeam-card {
+        margin:15px;
+    }
 }
