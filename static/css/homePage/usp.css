@@ -17,7 +17,7 @@
     background-color:#FFFFFF;
     width:290px;
     height:439px;
-    padding: 40px 20px 40px 20px;
+    padding: 30px 20px 30px 20px;
     border-radius:20px;
     box-shadow:
     0.5px 1.6px 3.6px rgba(90, 90, 221, 0.024),
@@ -38,11 +38,12 @@
     justify-content:space-between;
     flex-direction:column;
     align-items:center;
-    height:70px;
+    height:90px;
+    text-align:center;
 }
 
 .usp-title {
-    font-size:23px;
+    font-size:20px;
     font-weight:700;
 }
 

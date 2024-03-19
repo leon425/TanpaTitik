@@ -74,25 +74,68 @@
                         <!--Description Dropdown-->
                         <!--Overview-->
                         <div class="desc-div-container">
-                            <div class="desc-div" type="button" data-bs-toggle="collapse" data-bs-target="#overview" aria-expanded="false" aria-controls="collapseExample">
+                            <div class="desc-div" type="button" data-bs-toggle="collapse" data-bs-target="#overview" aria-expanded="false" aria-controls="overview">
                               <div class="desc-div-title">Overview</div>
                               <div class="desc-head-button"><ion-icon name="chevron-down-outline" style="color:rgba(1,1,1,0.6);width:50px;height:20px;"></ion-icon></div>
                             </div>
                             
                             <div class="collapse desc-div-answer" id="overview">
-                              <div>{{thisProduct.overview}}</div>
+                              {% if thisProduct.product_index == 1 %}
+                              <ul>
+                                <li><div>Color</div>: Tealish blue, a unique and refreshing shade that adds a pop of color to your wardrobe, perfect for standing out in style.</li>
+                                <li><div>Size</div>: S -  Length: 53cm, Width: 45cm.</li>
+                                <li><div>Sleeveless Design</div>: Featuring a sleeveless silhouette with button closure, this vest exudes a classic and refined look, perfect for layering over shirts or dresses.</li>
+                                <li><div>Comfort</div>: Designed with a breathable mesh lining to enhance airflow and comfort, ensuring you stay cool and comfortable throughout the day.</li>
+                                <li><div>Occasions</div>: Casual outing, this versatile vest effortlessly elevates your outfit with its sophisticated charm and unique detailing.</li>
+                                <li><div>Care:</div> Easy to maintain with gentle machine washing or dry cleaning for longevity.</li>
+                              </ul>
+
+                              {% elif thisProduct.product_index == 2 %}
+                              <ul>
+                                <li><div>Color</div>: Classic Pale Brown, versatile for various occasions and easy to pair with different outfits.</li>
+                                <li><div>Size</div>: XL - Length : 75cm, Width: 58cm, Sleeve: 63cm.</li>
+                                <li><div>Versatility</div> : Ideal for layering over shirts or lightweight sweaters, perfect for transitioning between seasons.</li>
+                                <li><div>Occasions</div> : Suitable for social gatherings, or casual outings, offering a refined yet relaxed aesthetic.</li>
+                                <li><div>Care</div> : Easy to maintain with gentle machine washing or dry cleaning for longevity.</li>
+                              </ul>
+
+                              {% elif thisProduct.product_index == 3 %}
+                              <ul>
+                                <li><div>Unique Design</div>: Our Denim Tote Bag with Batik Motif combines the timeless appeal of denim with the intricate beauty of batik, creating a stunning fusion of style and tradition.</li>
+                                <li><div>Spacious Interior</div>: Designed with ample room to carry your essentials, including books, groceries, or everyday items, making it perfect for shopping, work, or travel.</li>
+                                <li><div>Eco-Friendly Choice</div>: Made from sustainable materials and featuring traditional craftsmanship, this denim tote bag is an environmentally conscious option for those who appreciate both style and sustainability.</li>
+                              </ul>
+
+                              {% endif %}
+
+                              
                             </div>
                           </div> <!--desc-div-container-->
 
                           <!--Materials-->
                         <div class="desc-div-container">
-                            <div class="desc-div" type="button" data-bs-toggle="collapse" data-bs-target="#materials" aria-expanded="false" aria-controls="collapseExample">
+                            <div class="desc-div" type="button" data-bs-toggle="collapse" data-bs-target="#materials" aria-expanded="false" aria-controls="materials">
                               <div class="desc-div-title">Materials</div>
                               <div class="desc-head-button"><ion-icon name="chevron-down-outline" style="color:rgba(1,1,1,0.6);width:50px;height:20px;"></ion-icon></div>
                             </div>
                             
                             <div class="collapse desc-div-answer" id="materials">
-                              <div>{{thisProduct.material}}</div>
+                              {% if thisProduct.product_index == 1 %}
+                              <ul>
+                                <li><div>High Quality Nylon Fabric</div>: Fenowned for its durability and lightweight properties.</li>
+                              </ul>
+
+                              {% elif thisProduct.product_index == 2 %}
+                              <ul>
+                                <li><div>Premium Linen Fabric</div>: Known for its breathability and durability.</li>
+                              </ul>
+
+                              {% elif thisProduct.product_index == 3 %}
+                              <ul>
+                                <li><div>Durable denim fabric</div>: this tote bag offers both durability and style, making it suitable for everyday use.</li>
+                              </ul>
+                              {% endif %}
+
                             </div>
                           </div> <!--desc-div-container-->
 
@@ -146,26 +189,68 @@
                     <div class="desc-div-head">DESCRIPTION</div>
                     <!--Description Dropdown-->
                     <!--Overview-->
-                    <div class="desc-div-container">
-                        <div class="desc-div" type="button" data-bs-toggle="collapse" data-bs-target="#overview" aria-expanded="false" aria-controls="collapseExample">
+                    <div class="desc-div-container"><a href="#materials_mobile" data-toggle="collapse" data-target="#materials_mobile"></a>
+                        
+                        <div class="desc-div" type="button" data-bs-toggle="collapse" data-bs-target="#overview_mobile" aria-expanded="false" aria-controls="overview_mobile">
                           <div class="desc-div-title">Overview</div>
                           <div class="desc-head-button"><ion-icon name="chevron-down-outline" style="color:rgba(1,1,1,0.6);width:50px;height:20px;"></ion-icon></div>
-                        </div>
-                        
-                        <div class="collapse desc-div-answer" id="overview">
-                          <div>{{thisProduct.overview}}</div>
+                        </div> 
+
+                        <div class="collapse desc-div-answer" id="overview_mobile">
+                          {% if thisProduct.product_index == 1 %}
+                              <ul>
+                                <li><div>Color</div>: Tealish blue, a unique and refreshing shade that adds a pop of color to your wardrobe, perfect for standing out in style.</li>
+                                <li><div>Size</div>: S -  Length: 53cm, Width: 45cm.</li>
+                                <li><div>Sleeveless Design</div>: Featuring a sleeveless silhouette with button closure, this vest exudes a classic and refined look, perfect for layering over shirts or dresses.</li>
+                                <li><div>Comfort</div>: Designed with a breathable mesh lining to enhance airflow and comfort, ensuring you stay cool and comfortable throughout the day.</li>
+                                <li><div>Occasions</div>: Casual outing, this versatile vest effortlessly elevates your outfit with its sophisticated charm and unique detailing.</li>
+                                <li><div>Care:</div> Easy to maintain with gentle machine washing or dry cleaning for longevity.</li>
+                              </ul>
+
+                              {% elif thisProduct.product_index == 2 %}
+                              <ul>
+                                <li><div>Color</div>: Classic Pale Brown, versatile for various occasions and easy to pair with different outfits.</li>
+                                <li><div>Size</div>: XL - Length : 75cm, Width: 58cm, Sleeve: 63cm.</li>
+                                <li><div>Versatility</div> : Ideal for layering over shirts or lightweight sweaters, perfect for transitioning between seasons.</li>
+                                <li><div>Occasions</div> : Suitable for social gatherings, or casual outings, offering a refined yet relaxed aesthetic.</li>
+                                <li><div>Care</div> : Easy to maintain with gentle machine washing or dry cleaning for longevity.</li>
+                              </ul>
+
+                              {% elif thisProduct.product_index == 3 %}
+                              <ul>
+                                <li><div>Unique Design</div>: Our Denim Tote Bag with Batik Motif combines the timeless appeal of denim with the intricate beauty of batik, creating a stunning fusion of style and tradition.</li>
+                                <li><div>Spacious Interior</div>: Designed with ample room to carry your essentials, including books, groceries, or everyday items, making it perfect for shopping, work, or travel.</li>
+                                <li><div>Eco-Friendly Choice</div>: Made from sustainable materials and featuring traditional craftsmanship, this denim tote bag is an environmentally conscious option for those who appreciate both style and sustainability.</li>
+                              </ul>
+
+                              {% endif %}
                         </div>
                       </div> <!--desc-div-container-->
 
                       <!--Materials-->
                     <div class="desc-div-container">
-                        <div class="desc-div" type="button" data-bs-toggle="collapse" data-bs-target="#materials" aria-expanded="false" aria-controls="collapseExample">
+                        <div class="desc-div" type="button" data-bs-toggle="collapse" data-bs-target="#materials_mobile" aria-expanded="false" aria-controls="materials_mobile">
                           <div class="desc-div-title">Materials</div>
                           <div class="desc-head-button"><ion-icon name="chevron-down-outline" style="color:rgba(1,1,1,0.6);width:50px;height:20px;"></ion-icon></div>
                         </div>
                         
-                        <div class="collapse desc-div-answer" id="materials">
-                          <div>{{thisProduct.material}}</div>
+                        <div class="collapse desc-div-answer" id="materials_mobile">
+                          {% if thisProduct.product_index == 1 %}
+                              <ul>
+                                <li><div>High Quality Nylon Fabric</div>: Fenowned for its durability and lightweight properties.</li>
+                              </ul>
+
+                              {% elif thisProduct.product_index == 2 %}
+                              <ul>
+                                <li><div>Premium Linen Fabric</div>: Known for its breathability and durability.</li>
+                              </ul>
+
+                              {% elif thisProduct.product_index == 3 %}
+                              <ul>
+                                <li><div>Durable denim fabric</div>: this tote bag offers both durability and style, making it suitable for everyday use.</li>
+                              </ul>
+                              {% endif %}
+
                         </div>
                       </div> <!--desc-div-container-->
                 </div> <!--head-desc--> <!--Description for mobile-->

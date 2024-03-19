@@ -50,6 +50,7 @@ urlpatterns = [
     path("confirmOrder/", views.confirmOrder, name="confirmOrder"),
     path("load_cities/", views.load_cities, name="load_cities"),
     path("tempQWmUpMeekhv9NGxBGf5PzCnu8/", views.temp, name="temp"),
+    path("transaction_failed/", views.transaction_failed, name="transaction_failed"),
 
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #add the path. static files. 2 arguments. 1 for the url and 1 from the root. 

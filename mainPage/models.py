@@ -35,8 +35,6 @@ class Products(models.Model):
     date = models.DateField(auto_now_add=True)
     status = models.CharField(null=True, blank=True, max_length=200)
     bio = models.CharField(null=True, blank=True, max_length=200)
-    overview = models.CharField(null=True, blank=True, max_length=200)
-    material = models.CharField(null=True, blank=True, max_length=200)
     type = models.CharField(null=True, blank=True, max_length=200)
     size = models.CharField(null=True, blank=True, max_length=200)
     color = models.CharField(null=True, blank=True, max_length=200)
@@ -87,6 +85,20 @@ class Products(models.Model):
 
     def __str__(self):
         return self.name
+
+class Products_overview(models.Model):
+    text = models.CharField(null=True, blank=True, max_length=200)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.text
+    
+class Products_material(models.Model):
+    text = models.CharField(null=True, blank=True, max_length=200)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.text
 
 
 # Haven't make the feature where a user can make a review on 1 product once. Add the feature manually in the templates

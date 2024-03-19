@@ -24,7 +24,7 @@ def base2(request):
     return render(request, "main/base2.html", {})
 
 def home (request):
-    firstProduct = Products.objects.get(name="Blue Vest") #First Displayed in the Carousel
+    firstProduct = Products.objects.get(product_index=1) #First Displayed in the Carousel
     products = Products.objects.all()
     testimony = Testimony.objects.all()
     faqs = FAQs.objects.all()
@@ -236,7 +236,6 @@ def checkout(request):
 
 # urls redirect to purchase product => tempQWmUpMeekhv9NGxBGf5PzCnu8
 def temp(request):
-    
     # def handle_http_notification(request):
     #     if request.method == 'POST':
     #         payload = request.body.decode('utf-8')
@@ -250,6 +249,11 @@ def temp(request):
        customer = None
        thisOrder = 0
     return redirect("/checkout/done/"+thisOrder)
+
+def transaction_failed(request):
+    logo = Additional.objects.get(name="logo")
+    context = {"logo":logo,}
+    return render(request, "Additional/transaction_failed.html", context) 
 
 def checkout_done(request,pk):
     logo = Additional.objects.get(name="logo")

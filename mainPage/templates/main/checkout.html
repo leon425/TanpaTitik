@@ -73,7 +73,7 @@
                     {% for item in items %}
                       <div class="display-items">
                         <div class="display-items-pict">
-                          {% comment %} <img class="d-block w-100 img_overview" src="{{item.product.img.url}}" alt="{{item.product.name}}"> {% endcomment %}
+                          <img style="object-fit:contain;width:150px;height:95px;" src="{{item.product.img.url}}" alt="{{item.product.name}}">
                         </div>
                         <div class="summary-quantity">x{{item.quantity}}</div>
                       </div>
@@ -240,8 +240,7 @@
                               <div class="modal-footer" style="display:flex;justify-content:center;align-items:center;">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="width:75px !important;background:white !important; color:black !important;">No</button>
                                 {% comment %} <a href="/checkout/done/{{order}}"><button type="button" class="btn btn-primary" id="confirm_order" data-status="Placed" style="width:75px !important;background:#121147 !important;">Yes</button></a> {% endcomment %}
-                                <a href="{{payment_url}}"><button type="button" class="btn btn-primary" id="confirm_order" data-status="Placed" style="width:75px !important;background:#121147 !important;">Yes</button></a>
-                                <a href="{{payment_url}}">yes</a>
+                                <a href="{{payment_url}}"><div class="btn brn-primary" id="confirm_order" data-status="Placed" style="width:75px !important;background:#121147 !important;color:white !important;">Yes</div></a>
                               </div>
 
                           </div> <!--modal-content-->
