@@ -369,6 +369,7 @@ a {
 
     .product-page {
         transform: scale(1);
+        margin-top:120px;
     }
 
     .product-page-head {
